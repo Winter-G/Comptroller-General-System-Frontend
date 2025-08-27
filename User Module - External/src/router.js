@@ -57,6 +57,16 @@ import OwnershipChange from "./components/Dashboard/Roads/DataVerificationOffice
 import Transfer from "./components/Dashboard/Roads/DataVerificationOfficer/Transfer.vue";
 import Disposal from "./components/Dashboard/Roads/DataVerificationOfficer/Disposal.vue";
 
+import Dashboard from "./components/Dashboard/Railway/Dashboard.vue"; //Railway
+import RailwayLine from "./components/Dashboard/Railway/RailwayLine.vue"; 
+import SectionsModal from "./components/Dashboard/Railway/SectionsModal.vue";
+import DummyConstruction from "./components/Dashboard/Railway/DummyConstruction.vue";
+import Subway from "./components/Dashboard/Railway/Subway.vue"; 
+import MonoRail from "./components/Dashboard/Railway/MonoRail.vue"; 
+import RailwaySignal from "./components/Dashboard/Railway/RailwaySignal.vue";
+
+
+// import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
 // import assetManagementUpdateVehicle from "./components/Asset/Vehicle/UpdateVehicle.vue";
 // import assetManagementVehicleList from "./components/Asset/Vehicle/ListOfVehicles.vue";
@@ -438,6 +448,49 @@ const routes = [
     component: Disposal
   },
 
+  //Railway
+  { 
+    //Dashboard
+    path: '/railway/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
+  {
+    //Railway Line
+    path: '/railway/line',
+    name: 'RailwayLine',
+    component: RailwayLine
+  },
+  {
+    //Subway
+    path: '/railway/subway',
+    name: 'Subway',
+    component: Subway
+  },
+  {
+    //MonoRail
+    path: '/railway/mono-rail',
+    name: 'MonoRail',
+    component: MonoRail
+  },
+  {
+    //Railway Signal
+    path: '/railway/signal',
+    name: 'RailwaySignal',
+    component: RailwaySignal
+  },
+  {
+    //Sections Model
+    path: '/railway-line/sections',
+    name: 'SectionsModal',
+    component: SectionsModal
+  },
+  {
+    //Dummy Construction
+    path: '/railway-line/dummy-construction',
+    name: 'DummyConstruction',
+    component: DummyConstruction
+  }
 
   // {
   //   path: "/asset/management/report/generation/building",
