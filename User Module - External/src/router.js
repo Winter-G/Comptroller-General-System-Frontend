@@ -58,12 +58,15 @@ import Transfer from "./components/Dashboard/Roads/DataVerificationOfficer/Trans
 import Disposal from "./components/Dashboard/Roads/DataVerificationOfficer/Disposal.vue";
 
 import Dashboard from "./components/Dashboard/Railway/Dashboard.vue"; //Railway
-import RailwayLine from "./components/Dashboard/Railway/RailwayLine.vue"; 
+import RailwayLine from "./components/Dashboard/Railway/RailwayLine.vue";
 import SectionsModal from "./components/Dashboard/Railway/SectionsModal.vue";
 import DummyConstruction from "./components/Dashboard/Railway/DummyConstruction.vue";
-import Subway from "./components/Dashboard/Railway/Subway.vue"; 
-import MonoRail from "./components/Dashboard/Railway/MonoRail.vue"; 
+import Subway from "./components/Dashboard/Railway/Subway.vue";
+import MonoRail from "./components/Dashboard/Railway/MonoRail.vue";
 import RailwaySignal from "./components/Dashboard/Railway/RailwaySignal.vue";
+
+import SignalInfo from "./components/Dashboard/Railway/SignalInfo.vue";
+import UsageStatus from "./components/Dashboard/Railway/UsageStatus.vue";
 
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
@@ -263,7 +266,7 @@ const routes = [
       requiresAuth: false,
     },
   },
-  
+
 
   {
     //Construction - usage info1
@@ -449,7 +452,7 @@ const routes = [
   },
 
   //Railway
-  { 
+  {
     //Dashboard
     path: '/railway/dashboard',
     name: 'Dashboard',
@@ -490,6 +493,18 @@ const routes = [
     path: '/railway-line/dummy-construction',
     name: 'DummyConstruction',
     component: DummyConstruction
+  },
+  {
+    //Signal Information
+    path: '/railway/signal-info',
+    name: 'SignalInfo',
+    component: SignalInfo
+  },
+  {
+    //Usage Status
+    path: '/railway/usage-status',
+    name: 'UsageStatus',
+    component: UsageStatus
   }
 
   // {
