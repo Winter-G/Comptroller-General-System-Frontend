@@ -66,12 +66,9 @@
 
 <!-- Type + No of Signals -->
 <div class="row-grid-4 mt-3">
-  <!-- Left header -->
   <div class="row-head" style="grid-row: span 2; display: flex; align-items: center;">
     <b>Type</b>
   </div>
-
-  <!-- Column headers -->
   <div class="subfield">
     <label>No of Signals (Mechanical)</label>
     <input
