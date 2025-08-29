@@ -25,84 +25,97 @@
         <input type="text" v-model="formData.assetsCode" class="form-control" disabled />
       </div>
 
-      <!-- Railway Line Name -->
+      <!-- Name -->
       <div class="form-row">
-        <label for="name"><b>Railway Line Name</b></label>
-        <input type="text" id="name" maxlength="50" v-model="formData.name" class="form-control" required />
+        <label for="name"><b>Name</b></label>
+        <select id="name" v-model="formData.name" class="form-control" required>
+          <option disabled value="">Select Name</option>
+          <option value="Railway Line 1">Sugathadasa National Sports Complex</option>
+          <option value="Railway Line 2">Diyagama Mahinda Rajapaksa Sports Complex</option>
+        </select>
       </div>
 
-      <!-- Location (Start) -->
+      <!-- Location -->
       <div class="location-section">
-        <label class="section-label"><b>Location (Start)</b></label>
+        <label class="section-label"><b>Location</b></label>
         <div class="inline-labels compact">
           <span>District</span>
           <span>DS Division</span>
           <span>GN Division</span>
           <span>Coordinates</span>
-          <span>Railway Station</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.locationStart.district" class="form-select" required>
+          <select v-model="formData.location.district" class="form-select" required>
             <option disabled value="">Select District</option>
             <option value="Colombo">Colombo</option>
           </select>
-          <select v-model="formData.locationStart.dsDivision" class="form-select" required>
+          <select v-model="formData.location.dsDivision" class="form-select" required>
             <option disabled value="">Select DS Division</option>
             <option value="Colombo">Colombo</option>
           </select>
-          <select v-model="formData.locationStart.gnDivision" class="form-select" required>
+          <select v-model="formData.location.gnDivision" class="form-select">
             <option disabled value="">Select GN Division</option>
             <option value="Colombo">Colombo</option>
           </select>
-          <select v-model="formData.locationStart.coordinates" class="form-select" required>
+          <select v-model="formData.location.coordinates" class="form-select">
             <option disabled value="">Select Coordinates</option>
             <option value="6.9271,79.8612">6.9271, 79.8612</option>
           </select>
-          <input type="text" v-model="formData.locationStart.railwayStation" class="form-control" required />
         </div>
       </div>
 
-      <!-- Location (End) -->
+      <!-- Land Area -->
       <div class="location-section">
-        <label class="section-label"><b>Location (End)</b></label>
+        <label class="section-label"><b>Land Area</b></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
-          <span>GN Division</span>
-          <span>Coordinates</span>
-          <span>Railway Station</span>
+          <span>Measurement Unit</span>
+          <span>Area</span>
+          <span>Area (km²)</span>
+          <span>Ownership</span>
+          <span v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'">Land Owner</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.locationEnd.district" class="form-select" required>
-            <option disabled value="">Select District</option>
-            <option value="Colombo">Colombo</option>
+          <select v-model="formData.inSportsComplex.unit" @change="convertToKm2" class="form-select" required>
+            <option disabled value="">Select Unit</option>
+            <option>Square Meters (m²)</option>
+            <option>Square Kilometers (km²)</option>
+            <option>Square Miles (mi²)</option>
+            <option>Square Yards (yd²)</option>
+            <option>Square Feet (ft²)</option>
+            <option>Hectares (Ha)</option>
+            <option>Acres (ac)</option>
+            <option>Perches</option>
           </select>
-          <select v-model="formData.locationEnd.dsDivision" class="form-select" required>
-            <option disabled value="">Select DS Division</option>
-            <option value="Colombo">Colombo</option>
+
+          <input
+            type="text"
+            v-model="formData.inSportsComplex.area"
+            @input="onAreaInput"
+            class="form-control"
+            required
+          />
+
+          <input
+            type="text"
+            :value="formData.inSportsComplex.areaKm"
+            readonly disabled
+            class="form-control"
+          />
+
+          <select v-model="formData.inSportsComplex.landOwnership" class="form-select" required>
+            <option disabled value="">Select Ownership</option>
+            <option>Own</option>
+            <option>Own by Other Party</option>
           </select>
-          <select v-model="formData.locationEnd.gnDivision" class="form-select" required>
-            <option disabled value="">Select GN Division</option>
-            <option value="Colombo">Colombo</option>
-          </select>
-          <select v-model="formData.locationEnd.coordinates" class="form-select" required>
-            <option disabled value="">Select Coordinates</option>
-            <option value="6.9271,79.8612">6.9271, 79.8612</option>
-          </select>
-          <input type="text" v-model="formData.locationEnd.railwayStation" class="form-control" required />
+
+          <input
+            v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            type="text"
+            v-model="formData.inSportsComplex.landOwner"
+            class="form-control"
+            :required="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+          />
         </div>
-      </div>
-
-      <!-- Length (Km) -->
-      <div class="form-row">
-        <label for="lengthKm"><b>Length (Km)</b></label>
-        <input id="lengthKm" class="form-control" type="text" v-model="formData.lengthKm" @input="validateDecimal($event, 'lengthKm')" required />
-      </div>
-
-      <!-- Total Length of Loop Lines -->
-      <div class="form-row">
-        <label for="totalLengthKm"><b>Total Length of Loop Lines (Km)</b></label>
-        <input id="totalLengthKm" class="form-control" type="text" v-model="formData.totalLengthKm" @input="validateDecimal($event, 'totalLengthKm')" required />
       </div>
 
       <!-- Notice -->
@@ -151,7 +164,7 @@
         </div>
         <div class="form-row">
           <label>Payment Method</label>
-          <select v-model="formData.paymentMethod" class="form-control" required>
+          <select v-model="formData.paymentMethod" class="form-select" required>
             <option disabled value="">Select Method</option>
             <option>One time payment</option>
             <option>Yearly payment</option>
@@ -178,7 +191,7 @@
         </div>
         <div class="form-row">
           <label>Payment Method</label>
-          <select v-model="formData.paymentMethod" class="form-control" required>
+          <select v-model="formData.paymentMethod" class="form-select" required>
             <option disabled value="">Select Method</option>
             <option>One time payment</option>
             <option>Yearly payment</option>
@@ -197,34 +210,31 @@
       </div>
     </form>
 
-    <!-- Popup Modal -->
-    <div v-if="showSectionsPopup" class="popup-overlay">
-      <div class="popup-content">
-        <SectionsModal :formData="formData" @close="closeSectionsPopup" />
-      </div>
-    </div>
+    <!-- Render ConstructionStatusModal when nextClicked -->
+    <ConstructionStatusModal v-if="nextClicked" />
   </div>
 </template>
 
 <script>
-import SectionsModal from "@/components/Dashboard/Railway/SectionsModal.vue";
+import ConstructionStatusModal from "@/components/Construction/ConstructionStatusModal.vue";
 
 export default {
-  components: { 
-    SectionsModal 
-  },
+ components: { ConstructionStatusModal },
   data() {
     return {
-      showSectionsPopup: false,
       formData: {
         institutionName: '',
         institutionalSector: '',
-        assetsCode: '6111304 – Railway Line',
+        assetsCode: '6111309 – Sport and Recreation Facility',
         name: '',
-        locationStart: { district: '', dsDivision: '', gnDivision: '', coordinates: '', railwayStation: '' },
-        locationEnd: { district: '', dsDivision: '', gnDivision: '', coordinates: '', railwayStation: '' },
-        lengthKm: '',
-        totalLengthKm: '',
+        location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
+        inSportsComplex: {
+          unit: '',
+          area: '',
+          areaKm: '',
+          landOwnership: '',
+          landOwner: ''
+        },
         ownership: '',
         fromWhom: '',
         toWhom: '',
@@ -233,40 +243,53 @@ export default {
         paymentMethod: '',
         payment: '',
         income: ''
-      }
+      },
+      nextClicked: false
     }
   },
   methods: {
-    openSectionsPopup() { this.showSectionsPopup = true; },
-    closeSectionsPopup() { this.showSectionsPopup = false; },
-
-    validateDecimal(event, field) {
+    goNext() {
+      this.nextClicked = true;
+    },
+    validateMoney(event, field) {
       let value = typeof event === 'string' ? event : event.target.value;
-      const regex = /^\d*\.?\d{0,2}$/;
       value = value.replace(/[^0-9.]/g, '');
       const parts = value.split('.');
       if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-      if (value !== '' && !regex.test(value)) value = value.slice(0, -1);
+      if (value !== '' && !/^\d*\.?\d{0,3}$/.test(value)) value = value.slice(0, -1);
       this.formData[field] = value;
     },
 
-    validateMoney(event, field) {
-      let value = typeof event === 'string' ? event : event.target.value;
-      const regex = /^\d*\.?\d{0,3}$/;
-      value = value.replace(/[^0-9.]/g, '');
+    onAreaInput(event) {
+      let value = event.target.value.replace(/[^0-9.]/g, '');
       const parts = value.split('.');
       if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-      if (value !== '' && !regex.test(value)) value = value.slice(0, -1);
-      this.formData[field] = value;
+      this.formData.inSportsComplex.area = value;
+      this.convertToKm2();
+    },
+
+    convertToKm2() {
+      const area = parseFloat(this.formData.inSportsComplex.area);
+      if (!isNaN(area)) {
+        const unit = this.formData.inSportsComplex.unit;
+        let km2 = 0;
+        switch (unit) {
+          case 'Square Meters (m²)': km2 = area / 1e6; break;
+          case 'Square Kilometers (km²)': km2 = area; break;
+          case 'Square Miles (mi²)': km2 = area * 2.58999; break;
+          case 'Square Yards (yd²)': km2 = area * 0.000000836127; break;
+          case 'Square Feet (ft²)': km2 = area * 0.000000092903; break;
+          case 'Hectares (Ha)': km2 = area * 0.01; break;
+          case 'Acres (ac)': km2 = area * 0.00404686; break;
+          case 'Perches': km2 = area * 0.0000252929; break;
+        }
+        this.formData.inSportsComplex.areaKm = km2.toFixed(6);
+      }
     },
 
     submitForm() {
-      // base required fields
-      const requiredFields = [
-         "name", "lengthKm", "totalLengthKm", "ownership"
-      ];
-      const locationFields = ["district", "dsDivision", "gnDivision", "coordinates", "railwayStation"];
-
+      // Required base fields
+      const requiredFields = ["name", "ownership"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
           alert("Please fill all required fields!");
@@ -274,18 +297,23 @@ export default {
         }
       }
 
+      // Location validation
+      const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
-        if (!this.formData.locationStart[field]) {
+        if (!this.formData.location[field]) {
           alert("Please fill all required fields in Location (Start)!");
-          return;
-        }
-        if (!this.formData.locationEnd[field]) {
-          alert("Please fill all required fields in Location (End)!");
           return;
         }
       }
 
-      // conditional validation
+      // inSportsComplex validation
+      const inSC = this.formData.inSportsComplex;
+      if (!inSC.unit || !inSC.area || !inSC.landOwnership || (inSC.landOwnership === 'Own by Other Party' && !inSC.landOwner)) {
+        alert("Please fill all required fields in Sports Complex section!");
+        return;
+      }
+
+      // Conditional ownership validation
       if (this.formData.ownership === "Own (Transfer in)" && !this.formData.fromWhom) {
         alert("Please fill 'From Whom'!");
         return;
@@ -310,7 +338,8 @@ export default {
       }
 
       console.log("Form submitted:", this.formData);
-      this.openSectionsPopup();
+      this.nextClicked = true;
+
     }
   }
 }
@@ -353,34 +382,10 @@ export default {
 .inline-fields select, .inline-fields input { 
   flex: 1; 
 }
-.popup-overlay {
-  position: fixed; 
-  top: 0; left: 0; 
-  width: 100%; 
-  height: 100%;
-  background: rgba(0,0,0,0.5); 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  z-index: 9999;
-}
-.popup-content {
-  background: #fff; 
-  padding: 20px; 
-  border-radius: 10px;
-  min-width: 60%; 
-  max-height: 80vh; 
-  overflow-y: auto;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
 .next-btn-container { 
   margin-top: 20px; 
   text-align: right; 
 }
 </style>
-
-
-
-
 
 

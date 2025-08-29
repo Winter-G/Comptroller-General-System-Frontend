@@ -132,7 +132,7 @@ export default {
       console.log(`Track saved:`, this.currentTrack);
 
       // Go to construction page
-      this.$router.push({ name: "DummyConstruction" });
+      this.$router.push({ name: "ConstructionStatus" });
     },
     // Called after saving in construction page
     nextAfterConstruction() {

@@ -46,7 +46,7 @@ import AirFieldDashboard from "./components/Dashboard/AirFieldRunway/ToDoList/Ai
 import ViewDetails from "./components/Dashboard/AirFieldRunway/ToDoList/ViewDetails.vue";
 import ToDoList from "./components/Dashboard/AirFieldRunway/ToDoList/ToDoList.vue";
 
-import BasicInfo from "./components/Dashboard/Roads/DataVerificationOfficer/BasicInfo/BasicInfo.vue";
+import BasicInfo from "./components/Dashboard/Roads/DataVerificationOfficer/BasicInfo/BasicInfo.vue"; //Road
 import Revaluation from "./components/Dashboard/Roads/DataVerificationOfficer/Revaluation.vue";
 import OngoingConstruction from "./components/Dashboard/Roads/DataVerificationOfficer/OngoingConstruction.vue";
 import OngoingConstructionCont from "./components/Dashboard/Roads/DataVerificationOfficer/OngoingConstructionCont.vue";
@@ -68,6 +68,12 @@ import RailwaySignal from "./components/Dashboard/Railway/RailwaySignal.vue";
 import SignalInfo from "./components/Dashboard/Railway/SignalInfo.vue";
 import UsageStatus from "./components/Dashboard/Railway/UsageStatus.vue";
 
+import SportsDashboard from "./components/Dashboard/Sports&Recreation/SportsDashboard.vue";  //Sports and Recreation Facility
+import InSportsComplex from "./components/Dashboard/Sports&Recreation/InSportsComplex/InSportsComplex.vue";
+import InComplexComponents from "./components/Dashboard/Sports&Recreation/InSportsComplex/InComplexComponents.vue";
+import ChosenInComplexComponents from "./components/Dashboard/Sports&Recreation/InSportsComplex/ChosenInComplexComponents.vue";
+import IndoorStadium from "./components/Dashboard/Sports&Recreation/InSportsComplex/IndoorStadium.vue";
+import OutdoorStadium from "./components/Dashboard/Sports&Recreation/InSportsComplex/OutdoorStadium.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -505,6 +511,44 @@ const routes = [
     path: '/railway/usage-status',
     name: 'UsageStatus',
     component: UsageStatus
+  },
+
+  //Sports and Recreation Facility
+  {
+    //Dashboard
+    path: '/sports-recreation/dashboard',
+    name: 'SportsRecreationDashboard',
+    component: SportsDashboard
+  },
+  {
+    // In Sports Complex
+    path: '/sports-recreation/in-sports-complex',
+    name: 'InSportsComplex',
+    component: InSportsComplex
+  },
+  {
+    // In Complex Components
+    path: '/sports-recreation/in-complex-components',
+    name: 'InComplexComponents',
+    component: InComplexComponents
+  },
+  {
+    // Chosen In Complex Components
+    path: '/sports-recreation/chosen-in-complex-components',
+    name: 'ChosenInComplexComponents',
+    component: ChosenInComplexComponents
+  },
+  {
+    // Indoor Stadium
+    path: '/sports-recreation/indoor-stadium',
+    name: 'IndoorStadium',
+    component: IndoorStadium
+  },
+  {
+    // Outdoor Stadium
+    path: '/sports-recreation/outdoor-stadium',
+    name: 'OutdoorStadium',
+    component: OutdoorStadium
   }
 
   // {
