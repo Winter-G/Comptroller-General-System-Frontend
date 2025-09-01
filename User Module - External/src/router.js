@@ -74,6 +74,13 @@ import InComplexComponents from "./components/Dashboard/Sports&Recreation/InSpor
 import ChosenInComplexComponents from "./components/Dashboard/Sports&Recreation/InSportsComplex/ChosenInComplexComponents.vue";
 import IndoorStadium from "./components/Dashboard/Sports&Recreation/InSportsComplex/IndoorStadium.vue";
 import OutdoorStadium from "./components/Dashboard/Sports&Recreation/InSportsComplex/OutdoorStadium.vue";
+import PlayGround from "./components/Dashboard/Sports&Recreation/InSportsComplex/PlayGround.vue";
+import SwimmingPool from "./components/Dashboard/Sports&Recreation/InSportsComplex/SwimmingPool.vue";
+import JoggingPath from "./components/Dashboard/Sports&Recreation/InSportsComplex/JoggingPath.vue";
+import LinearPath from "./components/Dashboard/Sports&Recreation/InSportsComplex/LinearPath.vue";
+import GymnasiumStrengthHallFitnessHall from "./components/Dashboard/Sports&Recreation/InSportsComplex/GymnasiumStrengthHallFitnessHall.vue";
+import Park from "./components/Dashboard/Sports&Recreation/InSportsComplex/Park.vue";
+import Other from "./components/Dashboard/Sports&Recreation/InSportsComplex/Other.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -549,7 +556,49 @@ const routes = [
     path: '/sports-recreation/outdoor-stadium',
     name: 'OutdoorStadium',
     component: OutdoorStadium
-  }
+  },
+  {
+    // Play Ground
+    path: '/sports-recreation/play-ground',
+    name: 'PlayGround',
+    component: PlayGround
+  },
+  {
+    // Swimming Pool
+    path: '/sports-recreation/swimming-pool',
+    name: 'SwimmingPool',
+    component: SwimmingPool
+  },
+  {
+    //Jogging Path
+    path: '/sports-recreation/jogging-path',
+    name: 'JoggingPath',
+    component: JoggingPath
+  },
+  {
+    // Linear Path
+    path: '/sports-recreation/linear-path',
+    name: 'LinearPath',
+    component: LinearPath
+  },
+  {
+    // Gymnasium Strength Hall Fitness Hall
+    path: '/sports-recreation/gymnasium-strength-hall-fitness-hall',
+    name: 'GymnasiumStrengthHallFitnessHall',
+    component: GymnasiumStrengthHallFitnessHall
+  },
+  {
+    //Park
+    path: '/sports-recreation/park',
+    name: 'Park',
+    component: Park
+  },
+  {
+    // Other
+    path: '/sports-recreation/other',
+    name: 'Other',
+    component: Other
+  },
 
   // {
   //   path: "/asset/management/report/generation/building",

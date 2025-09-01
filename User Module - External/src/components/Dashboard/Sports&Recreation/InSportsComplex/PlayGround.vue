@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <div class="card">
-      <h2>Outdoor Stadium</h2>
+      <h2>Play Ground</h2>
       <form @submit.prevent="handleSubmit">
 
         <!-- Name or Identification Number -->
@@ -28,37 +28,6 @@
           <input id="playArea" type="text" class="form-control" v-model="formData.playArea" @input="validateDecimal" required />
         </div>
 
-        <!-- Track Information -->
-        <div class="form-row track-info">
-          <label class="track-label"><b>Track Information (as relevant)</b></label>
-          
-          <div class="track-container">
-            <div class="track-column">
-              <span>100m</span>
-              <select v-model="formData.inSportsComplex.hundredM" required>
-                <option disabled value="">Nos</option>
-                <option v-for="n in 20" :key="'100m-'+n" :value="n">{{ n }}</option>
-              </select>
-            </div>
-
-            <div class="track-column">
-              <span>200m</span>
-              <select v-model="formData.inSportsComplex.twoHundredM" required>
-                <option disabled value="">Nos</option>
-                <option v-for="n in 20" :key="'200m-'+n" :value="n">{{ n }}</option>
-              </select>
-            </div>
-
-            <div class="track-column">
-              <span>400m</span>
-              <select v-model="formData.inSportsComplex.fourHundredM" required>
-                <option disabled value="">Nos</option>
-                <option v-for="n in 20" :key="'400m-'+n" :value="n">{{ n }}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
         <!-- Save Button -->
         <div class="button-container">
           <button type="submit">SAVE</button>
@@ -77,12 +46,7 @@ export default {
         nameId: "",
         sport: "",
         seating: "",
-        playArea: "",
-        inSportsComplex: {
-          hundredM: "",
-          twoHundredM: "",
-          fourHundredM: "",
-        },
+        playArea: ""
       },
     };
   },
@@ -107,11 +71,6 @@ export default {
       if (!this.formData.nameId.trim()) { alert("Name or Identification No is required."); return; }
       if (!this.formData.sport.trim()) { alert("Sport/s is required."); return; }
       if (!this.formData.playArea.trim()) { alert("Play Area is required."); return; }
-      if (!this.formData.inSportsComplex.hundredM ||
-          !this.formData.inSportsComplex.twoHundredM ||
-          !this.formData.inSportsComplex.fourHundredM) {
-        alert("Please complete Track Information."); return;
-      }
       this.$router.push({ name: "ConstructionStatus" });
     },
   },
@@ -161,35 +120,6 @@ input {
   border-radius: 5px; 
 }
 
-.track-info {
-  align-items: flex-start;
-}
-
-.track-container {
-  display: flex;
-  gap: 25px;
-}
-
-.track-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-
-.track-column span {
-  font-weight: bold;
-  font-size: 14px;
-}
-
-select {
-  width: 70px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-}
-
 .button-container { 
   margin-top: 25px; 
   text-align: center; 
@@ -208,9 +138,3 @@ button:hover {
   background-color: #333; 
 }
 </style>
-
-
-
-
-
-
