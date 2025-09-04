@@ -85,7 +85,7 @@
               id="capacity"
               type="text"
               maxlength="10"
-              v-model.trim="park.capacity"
+              v-model.trim="other.capacity"
               @input="validateCapacity"
               class="form-control"
               style="max-width: 200px;"
@@ -93,42 +93,43 @@
             <span class="error-message" v-if="errors.capacity">{{ errors.capacity }}</span>
           </div>
 
-          <!-- Area Section -->
-          <div class="form-row">
-            <label for="parkArea"><b>Area</b></label>
-            <div class="inline-fields centered-area">
-              <div class="form-inline-group">
-                <label for="unit">Measurement Unit</label>
-                <select id="unit" v-model.trim="park.unit" @change="convertToKm2">
-                  <option disabled value="">Select Unit</option>
-                  <option>Square Meters (m²)</option>
-                  <option>Square Kilometers (km²)</option>
-                  <option>Square Miles (mi²)</option>
-                  <option>Square Yards (yd²)</option>
-                  <option>Square Feet (ft²)</option>
-                  <option>Hectares (Ha)</option>
-                  <option>Acres (ac)</option>
-                  <option>Perches</option>
-                </select>
-                <span class="error-message" v-if="errors.unit">{{ errors.unit }}</span>
-              </div>
+        <!-- Area -->
+        <div class="form-row">
+          <label for="otherArea"><b>Area </b></label>
+          <div class="inline-fields">
+            <div class="form-inline-group">
+              <label for="unit">Measurement Unit</label>
+              <select id="unit" v-model.trim="other.unit" @change="convertToKm2" required>
+                <option disabled value="">Select Unit</option>
+                <option>Square Meters (m²)</option>
+                <option>Square Kilometers (km²)</option>
+                <option>Square Miles (mi²)</option>
+                <option>Square Yards (yd²)</option>
+                <option>Square Feet (ft²)</option>
+                <option>Hectares (Ha)</option>
+                <option>Acres (ac)</option>
+                <option>Perches</option>
+              </select>
+              <span class="error-message" v-if="errors.unit">{{ errors.unit }}</span>
+            </div>
 
-              <div class="form-inline-group">
-                <label for="area">Area</label>
-                <input
-                  id="area"
-                  v-model.trim="park.area"
-                  @input="onAreaInput"
-                />
-                <span class="error-message" v-if="errors.area">{{ errors.area }}</span>
-              </div>
+            <div class="form-inline-group">
+              <label for="area">Area</label>
+              <input
+                id="area"
+                v-model.trim="other.area"
+                @input="onAreaInput"
+                required
+              />
+              <span class="error-message" v-if="errors.area">{{ errors.area }}</span>
+            </div>
 
-              <div class="form-inline-group">
-                <label for="areaKm">Area (km²)</label>
-                <input id="areaKm" :value="park.areaKm" disabled />
-              </div>
+            <div class="form-inline-group">
+              <label for="areaKm">Area (km²)</label>
+              <input id="areaKm" :value="other.areaKm" disabled />
             </div>
           </div>
+        </div>
 
         </div>
 
@@ -147,28 +148,34 @@ export default {
     return {
       formData: {
         nameId: "",
-        type: "",
+        description: "",
+        ownership: '',
+        fromWhom: '',
+        toWhom: '',
+        periodFrom: '',
+        periodTo: '',
+        paymentMethod: '',
+        payment: '',
+        income: '',
         lengthM: "",
         heightM: "",
         widthM: "",
         depthM: "",
         avgWidthM: "",
-        weightKg: "",
+        weightKg: ""
       },
-      park: {
+      other: {
         capacity: "",
         unit: "",
         area: "",
         areaKm: "",
-        ownership: "",
-        landOwner: "",
+        landOwnership: '',
+        landOwner: ''
       },
       errors: {
         capacity: "",
         unit: "",
-        area: "",
-        ownership: "",
-        landOwner: "",
+        area: ""
       },
     };
   },
@@ -186,21 +193,20 @@ export default {
       this.formData[field] = e.target.value;
     },
     onAreaInput() {
-      let value = this.park.area;
-      value = value.replace(/[^0-9.]/g, ''); 
-      const parts = value.split('.');
-      if (parts.length > 2) value = parts[0] + '.' + parts[1]; 
-      this.park.area = value;
-      this.errors.area = !this.park.area ? "Area is required" : "";
+      this.other.area = this.other.area.replace(/[^0-9.]/g, '');
+      if (!this.other.area.trim()) {
+        this.errors.area = 'Area is required';
+      } else {
+        this.errors.area = '';
+      }
       this.convertToKm2();
     },
-    validateCapacity() {
-      const regex = /^[0-9]+(\.[0-9]{1,2})?[a-zA-Z]*$/;
-      this.errors.capacity = !regex.test(this.park.capacity) ? "Invalid capacity format" : "";
-    },
     convertToKm2() {
-      const area = parseFloat(this.park.area);
-      if (isNaN(area)) { this.park.areaKm = ''; return; }
+      const area = parseFloat(this.other.area);
+      if (isNaN(area)) {
+        this.other.areaKm = '';
+        return;
+      }
       const conversionRates = {
         'Square Meters (m²)': 1e-6,
         'Square Kilometers (km²)': 1,
@@ -211,7 +217,11 @@ export default {
         'Acres (ac)': 0.00404686,
         'Perches': 0.0000636,
       };
-      this.park.areaKm = (area * (conversionRates[this.park.unit] || 0)).toFixed(6);
+      this.other.areaKm = (area * (conversionRates[this.other.unit] || 0)).toFixed(6);
+    },
+    validateCapacity() {
+      const regex = /^[0-9]+(\.[0-9]{1,2})?[a-zA-Z]*$/;
+      this.errors.capacity = !regex.test(this.other.capacity) ? "Invalid capacity format" : "";
     },
     handleSubmit() {
       this.errors = { capacity: "", unit: "", area: "", ownership: "", landOwner: "" };

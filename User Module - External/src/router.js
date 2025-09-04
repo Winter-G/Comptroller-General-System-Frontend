@@ -56,6 +56,7 @@ import Abandon from "./components/Dashboard/Roads/DataVerificationOfficer/Abando
 import OwnershipChange from "./components/Dashboard/Roads/DataVerificationOfficer/OwnershipChange.vue";
 import Transfer from "./components/Dashboard/Roads/DataVerificationOfficer/Transfer.vue";
 import Disposal from "./components/Dashboard/Roads/DataVerificationOfficer/Disposal.vue";
+import RoadsNotCompletedConstructionModal from "./components/Dashboard/Roads/RoadsNotCompletedConstructionModal.vue";
 
 import Dashboard from "./components/Dashboard/Railway/Dashboard.vue"; //Railway
 import RailwayLine from "./components/Dashboard/Railway/RailwayLine.vue";
@@ -81,6 +82,17 @@ import LinearPath from "./components/Dashboard/Sports&Recreation/InSportsComplex
 import GymnasiumStrengthHallFitnessHall from "./components/Dashboard/Sports&Recreation/InSportsComplex/GymnasiumStrengthHallFitnessHall.vue";
 import Park from "./components/Dashboard/Sports&Recreation/InSportsComplex/Park.vue";
 import Other from "./components/Dashboard/Sports&Recreation/InSportsComplex/Other.vue";
+
+import NotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/NotInSportsComplex.vue";
+import IndoorStadiumNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/IndoorStadiumNotInSC.vue";
+import OutdoorStadiumNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/OutdoorStadiumNotInSC.vue";
+import PlayGroundNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/PlayGroundNotInSC.vue";
+import SwimmingPoolNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/SwimmingPoolNotInSC.vue";
+import JoggingPathNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/JoggingPathNotInSC.vue";
+import LinearPathNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/LinearPathNotInSC.vue";
+import FitnessFacilitiesNotInSC from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/FitnessFacilitiesNotInSC.vue";
+import ParkNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/ParkNotInSC.vue";
+import OtherNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/OtherNotInSC.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -463,6 +475,12 @@ const routes = [
     name: 'Disposal',
     component: Disposal
   },
+  {
+    // Roads - Not Completed Construction
+    path: '/roads/not-completed-construction',
+    name: 'RoadsNotCompletedConstruction',
+    component: RoadsNotCompletedConstructionModal
+  },
 
   //Railway
   {
@@ -547,58 +565,118 @@ const routes = [
   },
   {
     // Indoor Stadium
-    path: '/sports-recreation/indoor-stadium',
+    path: '/in-sports-complex/indoor-stadium',
     name: 'IndoorStadium',
     component: IndoorStadium
   },
   {
     // Outdoor Stadium
-    path: '/sports-recreation/outdoor-stadium',
+    path: '/in-sports-complex/outdoor-stadium',
     name: 'OutdoorStadium',
     component: OutdoorStadium
   },
   {
     // Play Ground
-    path: '/sports-recreation/play-ground',
+    path: '/in-sports-complex/play-ground',
     name: 'PlayGround',
     component: PlayGround
   },
   {
     // Swimming Pool
-    path: '/sports-recreation/swimming-pool',
+    path: '/in-sports-complex/swimming-pool',
     name: 'SwimmingPool',
     component: SwimmingPool
   },
   {
     //Jogging Path
-    path: '/sports-recreation/jogging-path',
+    path: '/in-sports-complex/jogging-path',
     name: 'JoggingPath',
     component: JoggingPath
   },
   {
     // Linear Path
-    path: '/sports-recreation/linear-path',
+    path: '/in-sports-complex/linear-path',
     name: 'LinearPath',
     component: LinearPath
   },
   {
     // Gymnasium Strength Hall Fitness Hall
-    path: '/sports-recreation/gymnasium-strength-hall-fitness-hall',
+    path: '/in-sports-complex/gymnasium-strength-hall-fitness-hall',
     name: 'GymnasiumStrengthHallFitnessHall',
     component: GymnasiumStrengthHallFitnessHall
   },
   {
     //Park
-    path: '/sports-recreation/park',
+    path: '/in-sports-complex/park',
     name: 'Park',
     component: Park
   },
   {
     // Other
-    path: '/sports-recreation/other',
+    path: '/in-sports-complex/other',
     name: 'Other',
     component: Other
   },
+  {
+    // Not In Sports Complex
+    path: '/sports-recreation/not-in-sports-complex',
+    name: 'NotInSportsComplex',
+    component: NotInSportsComplex
+  },
+  {
+    // Indoor Stadium
+    path: '/not-in-sports-complex/indoor-stadium',
+    name: 'NotInSportsComplexIndoorStadium',
+    component: IndoorStadiumNotInSportsComplex
+  },
+  {
+    // Outdoor Stadium
+    path: '/not-in-sports-complex/outdoor-stadium',
+    name: 'NotInSportsComplexOutdoorStadium',
+    component: OutdoorStadiumNotInSportsComplex
+  },
+  {
+    // Play Ground
+    path: '/not-in-sports-complex/playground',
+    name: 'NotInSportsComplexPlayGround',
+    component: PlayGroundNotInSportsComplex
+  },
+  {
+    // Swimming Pool
+    path: '/not-in-sports-complex/swimming-pool',
+    name: 'NotInSportsComplexSwimmingPool',
+    component: SwimmingPoolNotInSportsComplex
+  },
+  {
+    // Jogging Path
+    path: '/not-in-sports-complex/jogging-path',
+    name: 'NotInSportsComplexJoggingPath',
+    component: JoggingPathNotInSportsComplex
+  },
+  {
+    // Linear Path
+    path: '/not-in-sports-complex/linear-path',
+    name: 'NotInSportsComplexLinearPath',
+    component: LinearPathNotInSportsComplex
+  },
+  {
+    // Fitness Facilities
+    path: '/not-in-sports-complex/fitness-facilities',
+    name: 'NotInSportsComplexFitnessFacilities',
+    component: FitnessFacilitiesNotInSC
+  },
+  {
+    // Park
+    path: '/not-in-sports-complex/park',
+    name: 'NotInSportsComplexPark',
+    component: ParkNotInSportsComplex
+  },
+  {
+    // Other
+    path: '/not-in-sports-complex/other',
+    name: 'NotInSportsComplexOther',
+    component: OtherNotInSportsComplex
+  }
 
   // {
   //   path: "/asset/management/report/generation/building",

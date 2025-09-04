@@ -1,37 +1,22 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 in-sports-complex-card" @submit.prevent="submitForm">
-
-      <!-- Institution Name -->
-      <div class="form-row">
-        <label><b>Institution Name:</b></label>
-        <input type="text" v-model="formData.institutionName" class="form-control" disabled />
-      </div>
-
-      <!-- Institutional Sector -->
-      <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
-        <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
-      </div>
-
-      <!-- Notice -->
-      <div class="alert alert-info my-3">
-        Before proceeding, please check whether your Institution Name and the Institutional Sector shown here are correct.
-      </div>
-
-      <!-- Assets Code -->
-      <div class="form-row">
-        <label><b>Assets Code:</b></label>
-        <input type="text" v-model="formData.assetsCode" class="form-control" disabled />
-      </div>
+    <form class="card shadow-sm p-4 swimming-pool-card" @submit.prevent="submitForm">
 
       <!-- Name -->
       <div class="form-row">
-        <label for="name"><b>Name</b></label>
-        <select id="name" v-model="formData.name" class="form-control" required>
-          <option disabled value="">Select Name</option>
-          <option value="Railway Line 1">Sugathadasa National Sports Complex</option>
-          <option value="Railway Line 2">Diyagama Mahinda Rajapaksa Sports Complex</option>
+        <label for="name"><b>Name or Identification No</b></label>
+        <input type="text" id="name" maxlength="20" v-model="formData.name" class="form-control" required>
+      </div>
+
+      <!-- Type -->
+      <div class="form-row">
+        <label for="type"><b>Type</b></label>
+        <select id="type" v-model="formData.type" class="form-control" required>
+          <option disabled value="">Select Type</option>
+          <option>Swimming Pool</option>
+          <option>Diving Pool</option>
+          <option>Sub Pool</option>
+          <option>Other</option>
         </select>
       </div>
 
@@ -72,10 +57,10 @@
           <span>Area</span>
           <span>Area (km²)</span>
           <span>Ownership</span>
-          <span v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'">Land Owner</span>
+          <span v-if="formData.swimmingPool.landOwnership === 'Own by Other Party'">Land Owner</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.inSportsComplex.unit" @change="convertToKm2" class="form-select" required>
+          <select v-model="formData.swimmingPool.unit" @change="convertToKm2" class="form-select" required>
             <option disabled value="">Select Unit</option>
             <option>Square Meters (m²)</option>
             <option>Square Kilometers (km²)</option>
@@ -89,7 +74,7 @@
 
           <input
             type="text"
-            v-model="formData.inSportsComplex.area"
+            v-model="formData.swimmingPool.area"
             @input="onAreaInput"
             class="form-control"
             required
@@ -97,23 +82,25 @@
 
           <input
             type="text"
-            :value="formData.inSportsComplex.areaKm"
-            readonly disabled
+            :value="formData.swimmingPool.areaKm"
+            readonly
+            disabled
             class="form-control"
           />
 
-          <select v-model="formData.inSportsComplex.landOwnership" class="form-select" required>
-            <option disabled value="">Select Ownership</option>
+          <select v-model="formData.swimmingPool.landOwnership" class="form-select" required>
+            <option disabled value="">Select Land Ownership</option>
             <option>Own</option>
             <option>Own by Other Party</option>
           </select>
 
           <input
-            v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            v-if="formData.swimmingPool.landOwnership === 'Own by Other Party'"
             type="text"
-            v-model="formData.inSportsComplex.landOwner"
+            v-model="formData.swimmingPool.landOwner"
             class="form-control"
-            :required="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            placeholder="Enter Land Owner"
+            :required="formData.swimmingPool.landOwnership === 'Own by Other Party'"
           />
         </div>
       </div>
@@ -204,52 +191,80 @@
         </div>
       </div>
 
-      <!-- NEXT button -->
-      <div class="next-btn-container">
-        <button type="submit" class="btn btn-primary">NEXT</button>
+      <!-- Dimensions -->
+      <div class="form-row">
+        <label for="lengthM"><b>Length (m)</b></label>
+        <input id="lengthM" class="form-control" type="text" maxlength="6"
+               v-model="formData.lengthM" @input="validateDecimal($event, 'lengthM')" required />
+      </div>
+
+      <div class="form-row">
+        <label for="widthM"><b>Width (m)</b></label>
+        <input id="widthM" class="form-control" type="text" maxlength="6"
+               v-model="formData.widthM" @input="validateDecimal($event, 'widthM')" required />
+      </div>
+
+      <div class="form-row">
+        <label for="maxDepthM"><b>Maximum Depth (m)</b></label>
+        <input id="maxDepthM" class="form-control" type="text" maxlength="6"
+               v-model="formData.maxDepthM" @input="validateDecimal($event, 'maxDepthM')" required />
+      </div>
+
+      <!-- Seating Capacity -->
+      <div class="form-row mt-2">
+        <label for="seating"><b>Seating Capacity (as relevant)</b></label>
+        <input
+          id="seating"
+          class="form-control"
+          type="text"
+          v-model="formData.seating"
+          @input="validateNumberOnly($event, 'seating')"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button type="submit">SAVE</button>
       </div>
     </form>
-
-    <!-- Render ConstructionStatusModal when nextClicked -->
-    <ConstructionStatusModal v-if="nextClicked" />
   </div>
 </template>
 
 <script>
-import ConstructionStatusModal from "@/components/Construction/ConstructionStatusModal.vue";
-
 export default {
- components: { ConstructionStatusModal },
   data() {
     return {
       formData: {
-        institutionName: '',
-        institutionalSector: '',
-        assetsCode: '6111309 – Sport and Recreation Facility',
         name: '',
+        type: '',
+        lengthM: "",
+        widthM: "",
+        maxDepthM: "",
+        seating: "",
         location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
-        inSportsComplex: {
-          unit: '',
-          area: '',
-          areaKm: '',
-          landOwnership: '',
-          landOwner: ''
-        },
-        ownership: '',
-        fromWhom: '',
-        toWhom: '',
-        periodFrom: '',
-        periodTo: '',
-        paymentMethod: '',
-        payment: '',
-        income: ''
-      },
-      nextClicked: false
+        swimmingPool: { unit: '', area: '', areaKm: '', landOwnership: '', landOwner: '' },
+        ownership: '', fromWhom: '', toWhom: '',
+        periodFrom: '', periodTo: '',
+        paymentMethod: '', payment: '', income: ''
+      }
     }
   },
   methods: {
-    goNext() {
-      this.nextClicked = true;
+    validateNumberOnly(e, field) {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+      this.formData[field] = e.target.value;
+    },
+    validateDecimal(e, field) {
+      e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+      if ((e.target.value.match(/\./g) || []).length > 1) {
+        e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+      }
+      const parts = e.target.value.split(".");
+      if (parts[1] && parts[1].length > 3) {
+        parts[1] = parts[1].substring(0, 3);
+        e.target.value = parts.join(".");
+      }
+      this.formData[field] = e.target.value;
     },
     validateMoney(event, field) {
       let value = typeof event === 'string' ? event : event.target.value;
@@ -259,87 +274,52 @@ export default {
       if (value !== '' && !/^\d*\.?\d{0,3}$/.test(value)) value = value.slice(0, -1);
       this.formData[field] = value;
     },
-
     onAreaInput(event) {
       let value = event.target.value.replace(/[^0-9.]/g, '');
       const parts = value.split('.');
       if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-      this.formData.inSportsComplex.area = value;
+      this.formData.swimmingPool.area = value;
       this.convertToKm2();
     },
-
     convertToKm2() {
-      const area = parseFloat(this.formData.inSportsComplex.area);
-      if (!isNaN(area)) {
-        const unit = this.formData.inSportsComplex.unit;
-        let km2 = 0;
-        switch (unit) {
-          case 'Square Meters (m²)': km2 = area / 1e6; break;
-          case 'Square Kilometers (km²)': km2 = area; break;
-          case 'Square Miles (mi²)': km2 = area * 2.58999; break;
-          case 'Square Yards (yd²)': km2 = area * 0.000000836127; break;
-          case 'Square Feet (ft²)': km2 = area * 0.000000092903; break;
-          case 'Hectares (Ha)': km2 = area * 0.01; break;
-          case 'Acres (ac)': km2 = area * 0.00404686; break;
-          case 'Perches': km2 = area * 0.0000252929; break;
-        }
-        this.formData.inSportsComplex.areaKm = km2.toFixed(6);
+      const area = parseFloat(this.formData.swimmingPool.area);
+      if (isNaN(area) || !this.formData.swimmingPool.unit) {
+        this.formData.swimmingPool.areaKm = '';
+        return;
       }
+      let km2 = 0;
+      switch (this.formData.swimmingPool.unit) {
+        case 'Square Meters (m²)': km2 = area / 1e6; break;
+        case 'Square Kilometers (km²)': km2 = area; break;
+        case 'Square Miles (mi²)': km2 = area * 2.58999; break;
+        case 'Square Yards (yd²)': km2 = area * 0.000000836127; break;
+        case 'Square Feet (ft²)': km2 = area * 0.000000092903; break;
+        case 'Hectares (Ha)': km2 = area * 0.01; break;
+        case 'Acres (ac)': km2 = area * 0.00404686; break;
+        case 'Perches': km2 = area * 0.0000252929; break;
+      }
+      this.formData.swimmingPool.areaKm = km2.toFixed(6);
     },
-
     submitForm() {
-      // Required base fields
-      const requiredFields = ["name", "ownership"];
+      const requiredFields = ["name", "type", "ownership", "lengthM", "widthM", "maxDepthM"];
       for (const field of requiredFields) {
-        if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
-        }
+        if (!this.formData[field]) { alert("Please fill all required fields!"); return; }
       }
-
-      // Location validation
       const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
-        if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location (Start)!");
-          return;
-        }
+        if (!this.formData.location[field]) { alert("Please fill Location!"); return; }
       }
+      const sp = this.formData.swimmingPool;
+      if (!sp.unit || !sp.area || !sp.landOwnership || (sp.landOwnership === 'Own by Other Party' && !sp.landOwner)) {
+        alert("Please fill all required Swimming Pool fields!"); return;
+      }
+      const { ownership, fromWhom, toWhom, periodFrom, periodTo, paymentMethod, payment, income } = this.formData;
+      if (ownership === "Own (Transfer in)" && !fromWhom) { alert("Please fill 'From Whom'!"); return; }
+      if (ownership === "Own (Transfer out)" && !toWhom) { alert("Please fill 'To Whom'!"); return; }
+      if (["Leased","Rented"].includes(ownership) && (!fromWhom || !periodFrom || !periodTo || !paymentMethod || !payment)) { alert("Please fill all lease/rent fields!"); return; }
+      if (["Leased out","Rented out"].includes(ownership) && (!toWhom || !periodFrom || !periodTo || !paymentMethod || !income)) { alert("Please fill all lease/rent out fields!"); return; }
 
-      // inSportsComplex validation
-      const inSC = this.formData.inSportsComplex;
-      if (!inSC.unit || !inSC.area || !inSC.landOwnership || (inSC.landOwnership === 'Own by Other Party' && !inSC.landOwner)) {
-        alert("Please fill all required fields in Sports Complex section!");
-        return;
-      }
-
-      // Conditional ownership validation
-      if (this.formData.ownership === "Own (Transfer in)" && !this.formData.fromWhom) {
-        alert("Please fill 'From Whom'!");
-        return;
-      }
-      if (this.formData.ownership === "Own (Transfer out)" && !this.formData.toWhom) {
-        alert("Please fill 'To Whom'!");
-        return;
-      }
-      if (["Leased", "Rented"].includes(this.formData.ownership)) {
-        if (!this.formData.fromWhom || !this.formData.periodFrom || !this.formData.periodTo ||
-            !this.formData.paymentMethod || !this.formData.payment) {
-          alert("Please fill all required lease/rent details!");
-          return;
-        }
-      }
-      if (["Leased out", "Rented out"].includes(this.formData.ownership)) {
-        if (!this.formData.toWhom || !this.formData.periodFrom || !this.formData.periodTo ||
-            !this.formData.paymentMethod || !this.formData.income) {
-          alert("Please fill all required lease/rent out details!");
-          return;
-        }
-      }
-
-      console.log("Form submitted:", this.formData);
-      this.nextClicked = true;
-
+      this.$router.push({ name: "ConstructionStatus" });
     }
   }
 }
@@ -347,45 +327,56 @@ export default {
 
 <style scoped>
 .form-row { 
-  display: flex; 
-  align-items: center; 
-  margin-bottom: 12px; 
-  gap: 12px; 
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 12px; 
+    gap: 12px; 
 }
 .form-row label { 
-  min-width: 220px; 
-  font-weight: bold; 
+    min-width: 220px; 
+    font-weight: bold; 
 }
-.form-row input, .form-row select {
-   flex: 1; 
+.form-row input, .form-row select { 
+    flex: 1; 
 }
 .location-section { 
-  margin-bottom: 20px; 
+    margin-bottom: 20px; 
 }
 .inline-labels { 
-  display: flex; 
-  justify-content: space-between; 
-  font-weight: normal; 
-  margin-bottom: 6px; 
+    display: flex; 
+    justify-content: space-between; 
+    font-weight: normal; 
+    margin-bottom: 6px; 
 }
 .inline-labels.compact { 
-  margin-top: 4px; 
+    margin-top: 4px; 
 }
 .inline-labels span { 
-  flex: 1; 
-  text-align: center; 
+    flex: 1; 
+    text-align: center; 
 }
 .inline-fields { 
-  display: flex; 
-  gap: 12px; 
+    display: flex; 
+    gap: 12px; 
 }
 .inline-fields select, .inline-fields input { 
-  flex: 1; 
+    flex: 1; 
 }
-.next-btn-container { 
-  margin-top: 20px; 
-  text-align: right; 
+.button-container { 
+    margin-top: 30px; 
+    text-align: center; 
+}
+button { 
+    background-color: black; 
+    color: white; 
+    padding: 10px 30px; 
+    border: none; 
+    border-radius: 30px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+button:hover { 
+    background-color: #333; 
 }
 </style>
-
-

@@ -1,39 +1,50 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 in-sports-complex-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 park-card" @submit.prevent="submitForm">
 
-      <!-- Institution Name -->
+      <!-- Name -->
       <div class="form-row">
-        <label><b>Institution Name:</b></label>
-        <input type="text" v-model="formData.institutionName" class="form-control" disabled />
+        <label for="name"><b>Name or Identification No</b></label>
+        <input type="text" id="name" maxlength="20" v-model="formData.name" class="form-control" required>
       </div>
 
-      <!-- Institutional Sector -->
-      <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
-        <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
+      <!-- Type -->
+      <div class="form-row">
+        <label for="type"><b>Type</b></label>
+        <div class="type-inline">
+          <select
+            v-if="!isAddingNewType"
+            id="type"
+            v-model="formData.type"
+            class="form-control"
+            required
+            @change="checkAddNew"
+          >
+            <option disabled value="">Select Type</option>
+            <option>Public Park</option>
+            <option>Wetland Park</option>
+            <option>Children’s Park</option>
+            <option>Urban Agriculture</option>
+            <option>Adult's Park</option>
+            <option>Urban Forest Park</option>
+            <option value="ADD NEW">ADD NEW</option>
+          </select>
+
+          <input
+            v-else
+            type="text"
+            placeholder="Enter New Type"
+            class="form-control"
+            v-model="formData.type"
+            required
+          />
+        </div>
       </div>
 
       <!-- Notice -->
       <div class="alert alert-info my-3">
-        Before proceeding, please check whether your Institution Name and the Institutional Sector shown here are correct.
-      </div>
-
-      <!-- Assets Code -->
-      <div class="form-row">
-        <label><b>Assets Code:</b></label>
-        <input type="text" v-model="formData.assetsCode" class="form-control" disabled />
-      </div>
-
-      <!-- Name -->
-      <div class="form-row">
-        <label for="name"><b>Name</b></label>
-        <select id="name" v-model="formData.name" class="form-control" required>
-          <option disabled value="">Select Name</option>
-          <option value="Railway Line 1">Sugathadasa National Sports Complex</option>
-          <option value="Railway Line 2">Diyagama Mahinda Rajapaksa Sports Complex</option>
-        </select>
-      </div>
+        As per the main facilities decide the type of the Park Ex- Viharamahadevi Public Park.
+      </div>        
 
       <!-- Location -->
       <div class="location-section">
@@ -64,6 +75,12 @@
         </div>
       </div>
 
+      <!-- Description -->
+      <div class="form-row">
+        <label for="description"><b>Description of Facilities Provided</b></label>
+        <input type="text" id="description" maxlength="100" v-model="formData.description" class="form-control">
+      </div>
+
       <!-- Land Area -->
       <div class="location-section">
         <label class="section-label"><b>Land Area</b></label>
@@ -72,10 +89,10 @@
           <span>Area</span>
           <span>Area (km²)</span>
           <span>Ownership</span>
-          <span v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'">Land Owner</span>
+          <span v-if="formData.park.landOwnership === 'Own by Other Party'">Land Owner</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.inSportsComplex.unit" @change="convertToKm2" class="form-select" required>
+          <select v-model="formData.park.unit" @change="convertToKm2" class="form-select" required>
             <option disabled value="">Select Unit</option>
             <option>Square Meters (m²)</option>
             <option>Square Kilometers (km²)</option>
@@ -89,7 +106,7 @@
 
           <input
             type="text"
-            v-model="formData.inSportsComplex.area"
+            v-model="formData.park.area"
             @input="onAreaInput"
             class="form-control"
             required
@@ -97,23 +114,23 @@
 
           <input
             type="text"
-            :value="formData.inSportsComplex.areaKm"
+            :value="formData.park.areaKm"
             readonly disabled
             class="form-control"
           />
 
-          <select v-model="formData.inSportsComplex.landOwnership" class="form-select" required>
+          <select v-model="formData.park.landOwnership" class="form-select" required>
             <option disabled value="">Select Ownership</option>
             <option>Own</option>
             <option>Own by Other Party</option>
           </select>
 
           <input
-            v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            v-if="formData.park.landOwnership === 'Own by Other Party'"
             type="text"
-            v-model="formData.inSportsComplex.landOwner"
+            v-model="formData.park.landOwner"
             class="form-control"
-            :required="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            :required="formData.park.landOwnership === 'Own by Other Party'"
           />
         </div>
       </div>
@@ -204,31 +221,25 @@
         </div>
       </div>
 
-      <!-- NEXT button -->
-      <div class="next-btn-container">
-        <button type="submit" class="btn btn-primary">NEXT</button>
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button type="submit">SAVE</button>
       </div>
     </form>
 
-    <!-- Render ConstructionStatusModal when nextClicked -->
-    <ConstructionStatusModal v-if="nextClicked" />
   </div>
 </template>
 
 <script>
-import ConstructionStatusModal from "@/components/Construction/ConstructionStatusModal.vue";
-
 export default {
- components: { ConstructionStatusModal },
   data() {
     return {
       formData: {
-        institutionName: '',
-        institutionalSector: '',
-        assetsCode: '6111309 – Sport and Recreation Facility',
         name: '',
+        type: '',
+        description: '',
         location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
-        inSportsComplex: {
+        park: {
           unit: '',
           area: '',
           areaKm: '',
@@ -244,13 +255,30 @@ export default {
         payment: '',
         income: ''
       },
-      nextClicked: false
+      isAddingNewType: false
     }
   },
   methods: {
-    goNext() {
-      this.nextClicked = true;
+    checkAddNew(event) {
+      if (event.target.value === "ADD NEW") {
+        this.isAddingNewType = true;
+        this.formData.type = "";
+      }
     },
+
+    validateDecimal(e, field) {
+      e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+      if ((e.target.value.match(/\./g) || []).length > 1) {
+        e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+      }
+      const parts = e.target.value.split(".");
+      if (parts[1] && parts[1].length > 2) {
+        parts[1] = parts[1].substring(0, 2);
+        e.target.value = parts.join(".");
+      }
+      this.formData[field] = e.target.value;
+    },
+
     validateMoney(event, field) {
       let value = typeof event === 'string' ? event : event.target.value;
       value = value.replace(/[^0-9.]/g, '');
@@ -264,14 +292,14 @@ export default {
       let value = event.target.value.replace(/[^0-9.]/g, '');
       const parts = value.split('.');
       if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-      this.formData.inSportsComplex.area = value;
+      this.formData.park.area = value;
       this.convertToKm2();
     },
 
     convertToKm2() {
-      const area = parseFloat(this.formData.inSportsComplex.area);
+      const area = parseFloat(this.formData.park.area);
       if (!isNaN(area)) {
-        const unit = this.formData.inSportsComplex.unit;
+        const unit = this.formData.park.unit;
         let km2 = 0;
         switch (unit) {
           case 'Square Meters (m²)': km2 = area / 1e6; break;
@@ -283,7 +311,7 @@ export default {
           case 'Acres (ac)': km2 = area * 0.00404686; break;
           case 'Perches': km2 = area * 0.0000252929; break;
         }
-        this.formData.inSportsComplex.areaKm = km2.toFixed(6);
+        this.formData.park.areaKm = km2.toFixed(6);
       }
     },
 
@@ -301,15 +329,16 @@ export default {
       const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
         if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location (Start)!");
+          alert("Please fill all required fields in Location!");
           return;
         }
       }
 
-      // inSportsComplex validation
-      const inSC = this.formData.inSportsComplex;
-      if (!inSC.unit || !inSC.area || !inSC.landOwnership || (inSC.landOwnership === 'Own by Other Party' && !inSC.landOwner)) {
-        alert("Please fill all required fields in Sports Complex section!");
+      // Park validation
+      const park = this.formData.park;
+      if (!park.unit || !park.area || !park.landOwnership || 
+          (park.landOwnership === 'Own by Other Party' && !park.landOwner)) {
+        alert("Please fill all required fields in Park section!");
         return;
       }
 
@@ -337,9 +366,7 @@ export default {
         }
       }
 
-      console.log("Form submitted:", this.formData);
-      this.nextClicked = true;
-
+      this.$router.push({ name: "ConstructionStatus" });
     }
   }
 }
@@ -382,10 +409,24 @@ export default {
 .inline-fields select, .inline-fields input { 
   flex: 1; 
 }
-.next-btn-container { 
-  margin-top: 20px; 
-  text-align: right; 
+.button-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+button {
+  background-color: black;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #333;
 }
 </style>
-
 

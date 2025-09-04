@@ -42,11 +42,11 @@ export default {
       routeMap: {
         indoorStadium: 'IndoorStadium',
         outdoorStadium: 'OutdoorStadium',
-        playground: 'Playground',
+        playground: 'PlayGround',
         swimmingPool: 'SwimmingPool',
         joggingPath: 'JoggingPath',
         linearPath: 'LinearPath',
-        gymnasiumStrengthHallFitnessHall: 'GymnasiumFitnessHall',
+        gymnasiumStrengthHallFitnessHall: 'GymnasiumStrengthHallFitnessHall',
         park: 'Park',
         other: 'Other'
       },

@@ -1,38 +1,11 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 in-sports-complex-card" @submit.prevent="submitForm">
-
-      <!-- Institution Name -->
-      <div class="form-row">
-        <label><b>Institution Name:</b></label>
-        <input type="text" v-model="formData.institutionName" class="form-control" disabled />
-      </div>
-
-      <!-- Institutional Sector -->
-      <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
-        <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
-      </div>
-
-      <!-- Notice -->
-      <div class="alert alert-info my-3">
-        Before proceeding, please check whether your Institution Name and the Institutional Sector shown here are correct.
-      </div>
-
-      <!-- Assets Code -->
-      <div class="form-row">
-        <label><b>Assets Code:</b></label>
-        <input type="text" v-model="formData.assetsCode" class="form-control" disabled />
-      </div>
+    <form class="card shadow-sm p-4 indoor-stadium-card" @submit.prevent="submitForm">
 
       <!-- Name -->
       <div class="form-row">
-        <label for="name"><b>Name</b></label>
-        <select id="name" v-model="formData.name" class="form-control" required>
-          <option disabled value="">Select Name</option>
-          <option value="Railway Line 1">Sugathadasa National Sports Complex</option>
-          <option value="Railway Line 2">Diyagama Mahinda Rajapaksa Sports Complex</option>
-        </select>
+        <label for="name"><b>Name or Identification No</b></label>
+        <input type="text" id="name" maxlength="20" v-model="formData.name" class="form-control" required>
       </div>
 
       <!-- Location -->
@@ -72,10 +45,10 @@
           <span>Area</span>
           <span>Area (km²)</span>
           <span>Ownership</span>
-          <span v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'">Land Owner</span>
+          <span v-if="formData.indoorStadium.landOwnership === 'Own by Other Party'">Land Owner</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.inSportsComplex.unit" @change="convertToKm2" class="form-select" required>
+          <select v-model="formData.indoorStadium.unit" @change="convertToKm2" class="form-select" required>
             <option disabled value="">Select Unit</option>
             <option>Square Meters (m²)</option>
             <option>Square Kilometers (km²)</option>
@@ -89,7 +62,7 @@
 
           <input
             type="text"
-            v-model="formData.inSportsComplex.area"
+            v-model="formData.indoorStadium.area"
             @input="onAreaInput"
             class="form-control"
             required
@@ -97,23 +70,23 @@
 
           <input
             type="text"
-            :value="formData.inSportsComplex.areaKm"
+            :value="formData.indoorStadium.areaKm"
             readonly disabled
             class="form-control"
           />
 
-          <select v-model="formData.inSportsComplex.landOwnership" class="form-select" required>
+          <select v-model="formData.indoorStadium.landOwnership" class="form-select" required>
             <option disabled value="">Select Ownership</option>
             <option>Own</option>
             <option>Own by Other Party</option>
           </select>
 
           <input
-            v-if="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            v-if="formData.indoorStadium.landOwnership === 'Own by Other Party'"
             type="text"
-            v-model="formData.inSportsComplex.landOwner"
+            v-model="formData.indoorStadium.landOwner"
             class="form-control"
-            :required="formData.inSportsComplex.landOwnership === 'Own by Other Party'"
+            :required="formData.indoorStadium.landOwnership === 'Own by Other Party'"
           />
         </div>
       </div>
@@ -204,31 +177,65 @@
         </div>
       </div>
 
-      <!-- NEXT button -->
-      <div class="next-btn-container">
-        <button type="submit" class="btn btn-primary">NEXT</button>
+      <!-- Sport/s -->
+      <div class="form-row mt-2">
+        <label for="sport"><b>Sport/s</b></label>
+        <input
+          type="text"
+          id="sport"
+          maxlength="100"
+          v-model="formData.sport"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <!-- Seating Capacity -->
+      <div class="form-row mt-2">
+        <label for="seating"><b>Seating Capacity</b></label>
+        <input
+          id="seating"
+          class="form-control"
+          type="text"
+          v-model="formData.seating"
+          @input="validateNumberOnly"
+          required
+        />
+      </div>
+
+      <!-- Play Area (m2) -->
+      <div class="form-row mt-2">
+        <label for="playArea"><b>Play Area (m²)</b></label>
+        <input
+          id="playArea"
+          class="form-control"
+          type="text"
+          v-model="formData.playArea"
+          @input="validateDecimal"
+          required
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button type="submit">SAVE</button>
       </div>
     </form>
 
-    <!-- Render ConstructionStatusModal when nextClicked -->
-    <ConstructionStatusModal v-if="nextClicked" />
   </div>
 </template>
 
 <script>
-import ConstructionStatusModal from "@/components/Construction/ConstructionStatusModal.vue";
-
 export default {
- components: { ConstructionStatusModal },
   data() {
     return {
       formData: {
-        institutionName: '',
-        institutionalSector: '',
-        assetsCode: '6111309 – Sport and Recreation Facility',
         name: '',
+        sport: "",
+        seating: "",
+        playArea: "",
         location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
-        inSportsComplex: {
+        indoorStadium: {
           unit: '',
           area: '',
           areaKm: '',
@@ -244,12 +251,24 @@ export default {
         payment: '',
         income: ''
       },
-      nextClicked: false
     }
   },
   methods: {
-    goNext() {
-      this.nextClicked = true;
+    validateNumberOnly(e) {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+      this.formData.seating = e.target.value;
+    },
+    validateDecimal(e) {
+      e.target.value = e.target.value.replace(/[^0-9.]/g, "");
+      if ((e.target.value.match(/\./g) || []).length > 1) {
+        e.target.value = e.target.value.substring(0, e.target.value.length - 1);
+      }
+      const parts = e.target.value.split(".");
+      if (parts[1] && parts[1].length > 3) {
+        parts[1] = parts[1].substring(0, 3);
+        e.target.value = parts.join(".");
+      }
+      this.formData.playArea = e.target.value;
     },
     validateMoney(event, field) {
       let value = typeof event === 'string' ? event : event.target.value;
@@ -264,14 +283,14 @@ export default {
       let value = event.target.value.replace(/[^0-9.]/g, '');
       const parts = value.split('.');
       if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-      this.formData.inSportsComplex.area = value;
+      this.formData.indoorStadium.area = value;
       this.convertToKm2();
     },
 
     convertToKm2() {
-      const area = parseFloat(this.formData.inSportsComplex.area);
+      const area = parseFloat(this.formData.indoorStadium.area);
       if (!isNaN(area)) {
-        const unit = this.formData.inSportsComplex.unit;
+        const unit = this.formData.indoorStadium.unit;
         let km2 = 0;
         switch (unit) {
           case 'Square Meters (m²)': km2 = area / 1e6; break;
@@ -283,13 +302,13 @@ export default {
           case 'Acres (ac)': km2 = area * 0.00404686; break;
           case 'Perches': km2 = area * 0.0000252929; break;
         }
-        this.formData.inSportsComplex.areaKm = km2.toFixed(6);
+        this.formData.indoorStadium.areaKm = km2.toFixed(6);
       }
     },
 
     submitForm() {
       // Required base fields
-      const requiredFields = ["name", "ownership"];
+      const requiredFields = ["name", "ownership", "sport", "seating", "playArea"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
           alert("Please fill all required fields!");
@@ -306,10 +325,11 @@ export default {
         }
       }
 
-      // inSportsComplex validation
-      const inSC = this.formData.inSportsComplex;
-      if (!inSC.unit || !inSC.area || !inSC.landOwnership || (inSC.landOwnership === 'Own by Other Party' && !inSC.landOwner)) {
-        alert("Please fill all required fields in Sports Complex section!");
+      // indoorStadium validation
+      const stadium = this.formData.indoorStadium;
+      if (!stadium.unit || !stadium.area || !stadium.landOwnership || 
+          (stadium.landOwnership === 'Own by Other Party' && !stadium.landOwner)) {
+        alert("Please fill all required fields in Indoor Stadium section!");
         return;
       }
 
@@ -337,9 +357,7 @@ export default {
         }
       }
 
-      console.log("Form submitted:", this.formData);
-      this.nextClicked = true;
-
+      this.$router.push({ name: "ConstructionStatus" });
     }
   }
 }
@@ -382,9 +400,24 @@ export default {
 .inline-fields select, .inline-fields input { 
   flex: 1; 
 }
-.next-btn-container { 
-  margin-top: 20px; 
-  text-align: right; 
+.button-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+button {
+  background-color: black;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #333;
 }
 </style>
 

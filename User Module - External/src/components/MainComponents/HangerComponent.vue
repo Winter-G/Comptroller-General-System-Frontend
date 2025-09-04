@@ -238,7 +238,6 @@ h2 {
   box-sizing: border-box;
 }
 
-/* Hidden field */
 .hidden {
   visibility: hidden;
   height: 0;
