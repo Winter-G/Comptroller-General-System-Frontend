@@ -94,6 +94,15 @@ import FitnessFacilitiesNotInSC from "./components/Dashboard/Sports&Recreation/N
 import ParkNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/ParkNotInSC.vue";
 import OtherNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/OtherNotInSC.vue";
 
+import CommunicationDashboard from "./components/Dashboard/Communication/CommunicationDashboard.vue"; //Communication
+import OwnStationBasicInfo from "./components/Dashboard/Communication/OwnStation/BasicInfo.vue";
+import OwnStationComponents from "./components/Dashboard/Communication/OwnStation/OwnStationComponents.vue";
+import ChosenOwnStationComponents from "./components/Dashboard/Communication/OwnStation/ChosenOwnStationComponents.vue";
+import Tower from "./components/Dashboard/Communication/OwnStation/Tower.vue";
+import Antenna from "./components/Dashboard/Communication/OwnStation/Antenna.vue";
+import Transmitter from "./components/Dashboard/Communication/OwnStation/Transmitter.vue";
+import OtherOwnStation from "./components/Dashboard/Communication/OwnStation/OtherOwnStation.vue";
+
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
 // import assetManagementUpdateVehicle from "./components/Asset/Vehicle/UpdateVehicle.vue";
@@ -676,6 +685,56 @@ const routes = [
     path: '/not-in-sports-complex/other',
     name: 'NotInSportsComplexOther',
     component: OtherNotInSportsComplex
+  },
+
+  //Communication
+  {
+    //Dashboard
+    path: '/communication/dashboard',
+    name: 'CommunicationDashboard',
+    component: CommunicationDashboard
+  },
+  {
+    //Own Station Basic Info
+    path: '/communication/own-station/basic-info',
+    name: 'OwnStationBasicInfo',
+    component: OwnStationBasicInfo
+  },
+  {
+    //Main Components
+    path: '/communication/own-station/main-components',
+    name: 'OwnStationComponents',
+    component: OwnStationComponents
+  },
+  {
+    //Chosen Components
+    path: '/communication/own-station/chosen-components',
+    name: 'ChosenOwnStationComponents',
+    component: ChosenOwnStationComponents
+  },
+  {
+    //Tower
+    path: '/communication/own-station/tower',
+    name: 'OwnStationTower',
+    component: Tower
+  },
+  {
+    //Antenna
+    path: '/communication/own-station/antenna',
+    name: 'OwnStationAntenna',
+    component: Antenna
+  },
+  {
+    //Transmitter
+    path: '/communication/own-station/transmitter',
+    name: 'OwnStationTransmitter',
+    component: Transmitter
+  },
+  {
+    //Other
+    path: '/communication/own-station/other',
+    name: 'OtherOwnStation',
+    component: OtherOwnStation
   }
 
   // {

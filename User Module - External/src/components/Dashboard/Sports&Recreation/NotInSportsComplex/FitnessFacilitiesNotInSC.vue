@@ -230,6 +230,7 @@ export default {
       formData: {
         name: '',
         type: '',
+        otherType: '',
         seating: "",
         location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
         fitnessFacilities: { unit: '', area: '', areaKm: '', landOwnership: '', landOwner: '' },
