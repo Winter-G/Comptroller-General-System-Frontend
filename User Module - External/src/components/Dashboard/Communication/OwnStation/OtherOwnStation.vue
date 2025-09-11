@@ -11,7 +11,7 @@
 
         <!-- Name or Identification Number -->
         <div class="form-row mt-2">
-          <label for="nameId"><b>Name or Identification No</b></label>
+          <label for="nameId"><b>Name or Identification <br>No</br></b></label>
           <input
             type="text"
             id="nameId"
@@ -80,7 +80,6 @@
             v-model.trim="formData.otherOwnStation.capacity"
             @input="validateCapacity"
             class="form-control"
-            style="max-width: 200px;"
           />
           <span class="error-message" v-if="errors.capacity">{{ errors.capacity }}</span>
         </div>
