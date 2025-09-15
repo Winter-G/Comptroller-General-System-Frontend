@@ -38,9 +38,9 @@
             required
             @change="checkAddNew"
           >
-            <option disabled value="">Select Name</option>
-            <option value="Sugathadasa National Sports Complex">Head Office  - ITN</option>
-           <option value="Yatiyanthota ITN">Yatiyanthota ITN</option>
+           <option disabled value="">Select Name</option>
+           <option value="Head Office - ITN">Head Office - ITN</option>
+           <option value="Yatiyanthota - ITN">Yatiyanthota - ITN</option>
            <option value="Hunnasgiriya - ITN">Hunnasgiriya - ITN</option>
            <option value="Karagahathenna - ITN">Karagahathenna - ITN</option>
            <option value="Deniyaya - ITN">Deniyaya - ITN</option>
@@ -59,7 +59,7 @@
            <option value="Nayabedda - SLBC">Nayabedda - SLBC</option>
            <option value="Hunnasgiriya - SLBC">Hunnasgiriya - SLBC</option>
            <option value="Radella - SLBC">Radella - SLBC</option>
-            <option value="ADD NEW">ADD NEW</option>
+           <option value="ADD NEW">ADD NEW</option>
           </select>
 
           <!-- Input -->
@@ -261,7 +261,7 @@ export default {
   components: { ConstructionStatusModal },
   data() {
     return {
-      isAddingNewStation: false, // toggle for ADD NEW
+      isAddingNewStation: false, 
       formData: {
         institutionName: '',
         institutionalSector: '',
@@ -291,7 +291,7 @@ export default {
     checkAddNew() {
       if (this.formData.name === "ADD NEW") {
         this.isAddingNewStation = true;
-        this.formData.name = ""; // clear so user can type
+        this.formData.name = ""; 
       }
     },
 

@@ -5,7 +5,7 @@
       <form @submit.prevent="handleSubmit">
         <!-- Name or Identification Number -->
         <div class="form-row mt-2">
-          <label for="nameId"><b>Name or Identification No</b></label>
+          <label for="nameId"><b>Name or Identification <br>No</br></b></label>
           <input
             type="text"
             id="nameId"
@@ -62,35 +62,34 @@
         </div>
 
         <!-- Basis of the Usage -->
-        <div class="form-row">
+         <div class="form-row">
           <label for="usage"><b>Basis of the Usage</b></label>
-          <div class="type-inline">
-            <select
-              id="usage"
-              v-model="formData.transmitter.usage"
-              class="form-control"
-              required
-            >
-              <option disabled value="">Select Usage</option>
-              <option>Own</option>
-              <option>Free of Charge</option>
-              <option>Lease/ Rent</option>
-              <option>Leased Out/ Rented Out</option>
-              <option>Other (Please Specify)</option>
-            </select>
-
-            <!-- Show input only if 'Other' is selected -->
-            <input
-              v-if="formData.transmitter.usage === 'Other (Please Specify)'"
-              type="text"
-              placeholder="Please specify"
-              maxlength="50"
-              class="form-control"
-              v-model="formData.otherUsage"
-              required
-            />
-          </div>
+          <select
+            id="usage"
+            v-model="formData.transmitter.usage"
+            class="form-control"
+            required
+          >
+            <option disabled value="">Select Usage</option>
+            <option>Own</option>
+            <option>Free of Charge</option>
+            <option>Lease/ Rent</option>
+            <option>Leased Out/ Rented Out</option>
+            <option>Other (Please Specify)</option>
+          </select>
+          
+        <!-- Show input only if 'Other' is selected -->
+        <input
+           v-if="formData.transmitter.usage === 'Other (Please Specify)'"
+           type="text"
+           placeholder="Please specify"
+           maxlength="50"
+           class="form-control"
+           v-model="formData.otherUsage"
+           required
+           />
         </div>
+
 
         <!-- Separator line -->
         <hr class="section-separator" />
@@ -298,9 +297,9 @@ h2 {
 }
 
 label {
-  min-width: 200px;
+  min-width: 250px;
   font-weight: bold;
-  text-align: right;
+  text-align: right ;
 }
 
 input,

@@ -95,13 +95,15 @@ import ParkNotInSportsComplex from "./components/Dashboard/Sports&Recreation/Not
 import OtherNotInSportsComplex from "./components/Dashboard/Sports&Recreation/NotInSportsComplex/OtherNotInSC.vue";
 
 import CommunicationDashboard from "./components/Dashboard/Communication/CommunicationDashboard.vue"; //Communication
-import OwnStationBasicInfo from "./components/Dashboard/Communication/OwnStation/BasicInfo.vue";
+import OwnStationBasicInfo from "./components/Dashboard/Communication/OwnStation/BasicInfo.vue"; //Own Station
 import OwnStationComponents from "./components/Dashboard/Communication/OwnStation/OwnStationComponents.vue";
 import ChosenOwnStationComponents from "./components/Dashboard/Communication/OwnStation/ChosenOwnStationComponents.vue";
 import Tower from "./components/Dashboard/Communication/OwnStation/Tower.vue";
 import Antenna from "./components/Dashboard/Communication/OwnStation/Antenna.vue";
 import Transmitter from "./components/Dashboard/Communication/OwnStation/Transmitter.vue";
 import OtherOwnStation from "./components/Dashboard/Communication/OwnStation/OtherOwnStation.vue";
+import StationFacilitiesOutsourcedBasicInfo from "./components/Dashboard/Communication/StationFacilitiesOutsourced/BasicInfo.vue";
+
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -735,7 +737,13 @@ const routes = [
     path: '/communication/own-station/other',
     name: 'OtherOwnStation',
     component: OtherOwnStation
-  }
+  },
+  {
+    //Station Facilities Outsourced
+    path: '/communication/station-facilities-outsourced',
+    name: 'StationFacilitiesOutsourced',
+    component: StationFacilitiesOutsourcedBasicInfo
+  },
 
   // {
   //   path: "/asset/management/report/generation/building",

@@ -5,7 +5,9 @@
       <form @submit.prevent="handleSubmit">
         <!-- Name or Identification Number -->
         <div class="form-row mt-2">
-          <label for="nameId"><b>Name or Identification No</b></label>
+          <label for="nameId">
+            <b>Name or<br />Identification No</b>
+          </label>
           <input
             type="text"
             id="nameId"
@@ -19,15 +21,13 @@
         <!-- Type -->
         <div class="form-row">
           <label for="type"><b>Type</b></label>
-          <div class="type-inline">
-            <select id="type" v-model="formData.type" class="form-control" required>
-              <option disabled value="">Select Type</option>
-              <option>Four Pole  (Self Supported)</option>
-              <option>Single Pole</option>
-              <option>Single Pole (Guy Cable)</option>
-              <option>Other</option>
-            </select>
-          </div>
+          <select id="type" v-model="formData.type" class="form-control" required>
+            <option disabled value="">Select Type</option>
+            <option>Four Pole  (Self Supported)</option>
+            <option>Single Pole</option>
+            <option>Single Pole (Guy Cable)</option>
+            <option>Other</option>
+          </select>
         </div>
 
         <!-- Height -->
@@ -58,7 +58,9 @@
 
         <!-- Maximum Weight of Antennas -->
         <div class="form-row">
-          <label for="maxWeight"><b>Maximum Weight of Antennas (kg)</b></label>
+          <label for="maxWeight">
+            <b>Maximum Weight of<br />Antennas (kg)</b>
+          </label>
           <input
             id="maxWeight"
             class="form-control"
@@ -73,26 +75,28 @@
         <!-- Ownership -->
         <div class="form-row">
           <label><b>Land Ownership</b></label>
-          <select v-model="formData.tower.ownership" class="form-select" required>
-            <option disabled value="">Select Land Ownership</option>
-            <option>Own</option>
-            <option>Own by Other Party</option>
-          </select>
+          <div class="input-group">
+            <select v-model="formData.tower.ownership" class="form-control" required>
+              <option disabled value="">Select Land Ownership</option>
+              <option>Own</option>
+              <option>Own by Other Party</option>
+            </select>
 
-          <input
-            v-if="formData.tower.ownership === 'Own by Other Party'"
-            type="text"
-            v-model="formData.tower.owner"
-            class="form-control"
-            :required="formData.tower.ownership === 'Own by Other Party'"
-            placeholder="Enter Owner Name"
-          />
+            <input
+              v-if="formData.tower.ownership === 'Own by Other Party'"
+              type="text"
+              v-model="formData.tower.owner"
+              class="form-control"
+              :required="formData.tower.ownership === 'Own by Other Party'"
+              placeholder="Enter Owner Name"
+            />
+          </div>
         </div>
 
         <!-- Basis of the Usage -->
         <div class="form-row">
           <label for="usage"><b>Basis of the Usage</b></label>
-          <div class="type-inline">
+          <div class="input-group">
             <select
               id="usage"
               v-model="formData.tower.usage"
@@ -107,7 +111,7 @@
               <option>Other (Please Specify)</option>
             </select>
 
-            <!-- Show input only if 'Other' is selected -->
+            <!-- Input only if 'Other' is selected -->
             <input
               v-if="formData.tower.usage === 'Other (Please Specify)'"
               type="text"
@@ -150,10 +154,10 @@ export default {
   },
   methods: {
     validateDecimal(e, decimals) {
-      let value = e.target.value.replace(/[^0-9.]/g, ""); 
+      let value = e.target.value.replace(/[^0-9.]/g, "");
       const parts = value.split(".");
       if (parts.length > 2) {
-        value = parts[0] + "." + parts[1]; 
+        value = parts[0] + "." + parts[1];
       }
       if (parts[1] && parts[1].length > decimals) {
         parts[1] = parts[1].substring(0, decimals);
@@ -225,13 +229,12 @@ h2 {
 .form-row {
   display: flex;
   align-items: center;
-  justify-content: center; 
   margin-bottom: 15px;
   gap: 15px;
 }
 
 label {
-  min-width: 200px;  
+  min-width: 250px;
   font-weight: bold;
   text-align: right;
 }
@@ -245,10 +248,8 @@ select {
   border-radius: 5px;
 }
 
-.type-inline {
+.input-group {
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
   flex: 1;
 }
@@ -273,6 +274,11 @@ button:hover {
   background-color: #333;
 }
 </style>
+
+
+
+
+
 
 
 

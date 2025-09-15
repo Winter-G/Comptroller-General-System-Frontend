@@ -311,13 +311,12 @@ h2 {
 .form-row {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-bottom: 15px;
   gap: 15px;
 }
 
 label {
-  min-width: 200px;
+  min-width: 250px;
   font-weight: bold;
   text-align: right;
 }
@@ -326,10 +325,11 @@ input,
 select,
 textarea {
   flex: 1;
-  max-width: 300px;
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 textarea {
@@ -339,7 +339,6 @@ textarea {
 .type-inline {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   flex: 1;
 }
@@ -370,5 +369,6 @@ button:hover {
   background-color: #333;
 }
 </style>
+
 
 
