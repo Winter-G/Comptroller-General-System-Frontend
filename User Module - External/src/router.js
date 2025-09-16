@@ -41,6 +41,15 @@ import RadarTowerComponent from "./components/MainComponents/RadarTowerComponent
 import HangerComponent from "./components/MainComponents/HangerComponent.vue";
 import OtherComponent from "./components/MainComponents/OtherComponent.vue";
 import SummeryOfComponents from "./components/MainComponents/SummeryOfComponents.vue";
+//update
+import MainComponentsUpdateView from "./components/MainComponents/Update/MainComponentsUpdateView.vue";
+import UpdatedChosenComponentsView from "./components/MainComponents/Update/UpdatedChosenComponentsView.vue";
+import RunwayComponentUpdate from "./components/MainComponents/Update/RunwayComponentUpdate.vue";
+import TaxiwayComponentUpdate from "./components/MainComponents/Update/TaxiwayComponentUpdate.vue";
+import ApronComponentUpdate from "./components/MainComponents/Update/ApronComponentUpdate.vue";
+import AirTrafficControlComponentUpdate from "./components/MainComponents/Update/AirTrafficControlComponentUpdate.vue";
+import HangerComponentUpdate from "./components/MainComponents/Update/HangerComponentUpdate.vue";
+import OtherComponentUpdate from "./components/MainComponents/Update/OtherComponentUpdate.vue";
 
 import AirFieldDashboard from "./components/Dashboard/AirFieldRunway/ToDoList/AirFieldDashboard.vue";
 import ViewDetails from "./components/Dashboard/AirFieldRunway/ToDoList/ViewDetails.vue";
@@ -407,6 +416,57 @@ const routes = [
     name: "ComponentsSummery",
     component: SummeryOfComponents,
   },
+
+  //Update
+  {
+    //Main Components Update
+    path: "/components/main-update",
+    name: "MainComponentsUpdateView",
+    component: MainComponentsUpdateView,
+  },
+  {
+    //Updated Chosen Components
+    path: "/components/updated-chosen",
+    name: "UpdatedChosenComponentsView",
+    component: UpdatedChosenComponentsView,
+  },
+  {
+    //Runway - Update
+    path: "/components/runway-update",
+    name: "RunwayComponentUpdate",
+    component: RunwayComponentUpdate,
+  },
+  {
+    //Taxiway - Update
+    path: "/components/taxiway-update",
+    name: "TaxiwayComponentUpdate",
+    component: TaxiwayComponentUpdate,
+  },
+  {
+    //Apron - Update
+    path: "/components/apron-update",
+    name: "ApronComponentUpdate",
+    component: ApronComponentUpdate,
+  },
+  {
+    //Air Traffic Control Tower Component - Update
+    path: "/components/airtrafficcontroltower-update",
+    name: "AirTrafficControlComponentUpdate",
+    component: AirTrafficControlComponentUpdate,
+  },
+  {
+    //Hanger - Update
+    path: "/components/hanger-update",
+    name: "HangerComponentUpdate",
+    component: HangerComponentUpdate,
+  },
+  {
+    //Other - Update
+    path: "/components/other-update",
+    name: "OtherComponentUpdate",
+    component: OtherComponentUpdate,
+  },
+
   {
     //Air Field Dashboard
     path: "/airfield/dashboard",
