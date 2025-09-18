@@ -113,6 +113,7 @@ import Transmitter from "./components/Dashboard/Communication/OwnStation/Transmi
 import OtherOwnStation from "./components/Dashboard/Communication/OwnStation/OtherOwnStation.vue";
 import StationFacilitiesOutsourcedBasicInfo from "./components/Dashboard/Communication/StationFacilitiesOutsourced/BasicInfo.vue";
 
+import TreatmentComplexDashboard from "./components/Dashboard/TreatmentComplex/TreatmentComplexDashboard.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -803,6 +804,14 @@ const routes = [
     path: '/communication/station-facilities-outsourced',
     name: 'StationFacilitiesOutsourced',
     component: StationFacilitiesOutsourcedBasicInfo
+  },
+
+  //Treatment Complex
+  {
+    //Dashboard
+    path: '/treatment-complex/dashboard',
+    name: 'TreatmentComplexDashboard',
+    component: TreatmentComplexDashboard
   },
 
   // {
