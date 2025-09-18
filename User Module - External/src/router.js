@@ -113,7 +113,8 @@ import Transmitter from "./components/Dashboard/Communication/OwnStation/Transmi
 import OtherOwnStation from "./components/Dashboard/Communication/OwnStation/OtherOwnStation.vue";
 import StationFacilitiesOutsourcedBasicInfo from "./components/Dashboard/Communication/StationFacilitiesOutsourced/BasicInfo.vue";
 
-import TreatmentComplexDashboard from "./components/Dashboard/TreatmentComplex/TreatmentComplexDashboard.vue";
+import TreatmentComplexDashboard from "./components/Dashboard/TreatmentComplex/TreatmentComplexDashboard.vue"; //Treatment Complex
+import WaterBasicInfo from "./components/Dashboard/TreatmentComplex/Water/WaterBasicInfo.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -812,6 +813,12 @@ const routes = [
     path: '/treatment-complex/dashboard',
     name: 'TreatmentComplexDashboard',
     component: TreatmentComplexDashboard
+  },
+  {
+    //Water - Basic Info
+    path: '/treatment-complex/water',
+    name: 'WaterBasicInfo',
+    component: WaterBasicInfo
   },
 
   // {
