@@ -112,9 +112,13 @@ import Antenna from "./components/Dashboard/Communication/OwnStation/Antenna.vue
 import Transmitter from "./components/Dashboard/Communication/OwnStation/Transmitter.vue";
 import OtherOwnStation from "./components/Dashboard/Communication/OwnStation/OtherOwnStation.vue";
 import StationFacilitiesOutsourcedBasicInfo from "./components/Dashboard/Communication/StationFacilitiesOutsourced/BasicInfo.vue";
-
+//Treatment Complex
 import TreatmentComplexDashboard from "./components/Dashboard/TreatmentComplex/TreatmentComplexDashboard.vue"; //Treatment Complex
 import WaterBasicInfo from "./components/Dashboard/TreatmentComplex/Water/WaterBasicInfo.vue";
+import TreatmentPlant from "./components/Dashboard/TreatmentComplex/Water/TreatmentPlant.vue";
+import WaterTransmission from "./components/Dashboard/TreatmentComplex/Water/WaterTransmission.vue";
+import PipeLinesNoModal from "./components/Dashboard/TreatmentComplex/Water/PipeLinesNoModal.vue";
+
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -820,6 +824,26 @@ const routes = [
     name: 'WaterBasicInfo',
     component: WaterBasicInfo
   },
+  {
+    //Water -  Treatment Plant
+    path: '/water/treatment-plant',
+    name: 'WaterTreatmentPlant',
+    component: TreatmentPlant
+  },
+  {
+    //Water - Transmission
+    path: '/water/water-transmission',
+    name: 'WaterTransmission',
+    component: WaterTransmission
+  },
+  {
+    //Water - Pipe Lines
+    path: '/water/transmission/pipe-lines',
+    name: 'WaterPipeLines',
+    component: PipeLinesNoModal
+  }
+
+
 
   // {
   //   path: "/asset/management/report/generation/building",
