@@ -118,7 +118,9 @@ import WaterBasicInfo from "./components/Dashboard/TreatmentComplex/Water/WaterB
 import TreatmentPlant from "./components/Dashboard/TreatmentComplex/Water/TreatmentPlant.vue";
 import WaterTransmission from "./components/Dashboard/TreatmentComplex/Water/WaterTransmission.vue";
 import PipeLinesNoModal from "./components/Dashboard/TreatmentComplex/Water/PipeLinesNoModal.vue";
-
+import WaterDistribution from "./components/Dashboard/TreatmentComplex/Water/WaterDistribution.vue";
+import WaterDistributionComponenets from "./components/Dashboard/TreatmentComplex/Water/WaterDistributionComponenets.vue";
+import ChosenDistributionComponenets from "./components/Dashboard/TreatmentComplex/Water/ChosenDistributionComponenets.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -841,6 +843,24 @@ const routes = [
     path: '/water/transmission/pipe-lines',
     name: 'WaterPipeLines',
     component: PipeLinesNoModal
+  },
+  {
+    //Water - Distribution
+    path: '/water/water-distribution',
+    name: 'WaterDistribution',
+    component: WaterDistribution
+  },
+  {
+    //Water Distribution Components
+    path: '/water-distribution/components',
+    name: 'WaterDistributionComponents',
+    component: WaterDistributionComponenets
+  },
+  {
+    //Chosen Distribution Components
+    path: '/water-distribution/components/chosen',
+    name: 'ChosenWaterDistributionComponents',
+    component: ChosenDistributionComponenets
   }
 
 
