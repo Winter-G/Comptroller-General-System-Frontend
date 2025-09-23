@@ -259,7 +259,7 @@ export default {
 </script>
 
 <style scoped>
-/* (Same styles as you had before) */
+
 .form-container {
   max-width: 700px;
   margin: auto;

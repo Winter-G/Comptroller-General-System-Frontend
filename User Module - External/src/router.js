@@ -133,6 +133,10 @@ import SewerageBasicInfo from "./components/Dashboard/TreatmentComplex/Sewerage/
 import SewerageMainComponents from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageMainComponents.vue";
 import ChosenSewerageComponents from "./components/Dashboard/TreatmentComplex/Sewerage/ChosenSewerageComponents.vue";
 import SewerageTreatmentPlantComponent from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageTreatmentPlantComponent.vue";
+import SeweragePumpingStationComponent from "./components/Dashboard/TreatmentComplex/Sewerage/SeweragePumpingStationComponent.vue";
+import SewerageOutletsComponent from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageOutletsComponent.vue";
+import PipeLinesForceMainComponent from "./components/Dashboard/TreatmentComplex/Sewerage/PipeLinesForceMainComponent.vue";
+import SewerageValuation from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageValuation.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -934,6 +938,30 @@ const routes = [
     path: '/sewerage/treatmentplant',
     name: 'SewerageTreatmentPlantComponent',
     component: SewerageTreatmentPlantComponent
+  },
+  {
+    //Sewerage - Pumping Station
+    path: '/sewerage/pumpingstation',
+    name: 'SeweragePumpingStationComponent',
+    component: SeweragePumpingStationComponent
+  },
+  {
+    //Sewerage - Outlets
+    path: '/sewerage/outlets',
+    name: 'SewerageOutletsComponent',
+    component: SewerageOutletsComponent
+  },
+  {
+    //Sewerage - Pipe Lines - Force Main
+    path: '/sewerage/pipe-lines-force-main',
+    name: 'PipeLinesForceMainComponent',
+    component: PipeLinesForceMainComponent
+  },
+  {
+    //Sewerage - Valuation
+    path: '/sewerage/valuation',
+    name: 'SewerageValuation',
+    component: SewerageValuation
   }
 
   // {

@@ -47,7 +47,6 @@
                  v-model="formData.capacityM3" @input="validateDecimal($event, 'capacityM3')" required />
         </div>
 
-
       <!-- Land Area -->
       <div class="location-section">
         <label class="section-label"><b>Land Area</b></label>
