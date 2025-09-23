@@ -129,6 +129,11 @@ import WaterPumpHouseComponent from "./components/Dashboard/TreatmentComplex/Wat
 import WaterChlorinatorsComponent from "./components/Dashboard/TreatmentComplex/Water/WaterChlorinatorsComponent.vue";
 import OtherDistributionComponent from "./components/Dashboard/TreatmentComplex/Water/OtherDistributionComponent.vue";
 
+import SewerageBasicInfo from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageBasicInfo.vue";
+import SewerageMainComponents from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageMainComponents.vue";
+import ChosenSewerageComponents from "./components/Dashboard/TreatmentComplex/Sewerage/ChosenSewerageComponents.vue";
+import SewerageTreatmentPlantComponent from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageTreatmentPlantComponent.vue";
+
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
 // import assetManagementUpdateVehicle from "./components/Asset/Vehicle/UpdateVehicle.vue";
@@ -905,6 +910,31 @@ const routes = [
     name: 'OtherDistributionComponent',
     component: OtherDistributionComponent
   },
+  //Sewerage
+  {
+    //Sewerage - Basic Info
+    path: '/treatment-complex/sewerage',
+    name: 'SewerageBasicInfo',
+    component: SewerageBasicInfo
+  },
+  {
+    //Sewerage - Main Components
+    path: '/water-sewerage/components/main',
+    name: 'SewerageMainComponents',
+    component: SewerageMainComponents
+  },
+  {
+    //Sewerage - Chosen Components
+    path: '/water-sewerage/components/chosen',
+    name: 'ChosenSewerageComponents',
+    component: ChosenSewerageComponents
+  },
+  {
+    //Sewerage - Treatment Plant
+    path: '/sewerage/treatmentplant',
+    name: 'SewerageTreatmentPlantComponent',
+    component: SewerageTreatmentPlantComponent
+  }
 
   // {
   //   path: "/asset/management/report/generation/building",
