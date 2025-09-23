@@ -120,7 +120,14 @@ import WaterTransmission from "./components/Dashboard/TreatmentComplex/Water/Wat
 import PipeLinesNoModal from "./components/Dashboard/TreatmentComplex/Water/PipeLinesNoModal.vue";
 import WaterDistribution from "./components/Dashboard/TreatmentComplex/Water/WaterDistribution.vue";
 import WaterDistributionComponenets from "./components/Dashboard/TreatmentComplex/Water/WaterDistributionComponenets.vue";
+
 import ChosenDistributionComponenets from "./components/Dashboard/TreatmentComplex/Water/ChosenDistributionComponenets.vue";
+import WaterTowerComponent from "./components/Dashboard/TreatmentComplex/Water/WaterTowerComponent.vue";
+import WaterTankComponent from "./components/Dashboard/TreatmentComplex/Water/WaterTankComponent.vue";
+import WaterValveComponent from "./components/Dashboard/TreatmentComplex/Water/WaterValveComponent.vue";
+import WaterPumpHouseComponent from "./components/Dashboard/TreatmentComplex/Water/WaterPumpHouseComponent.vue";
+import WaterChlorinatorsComponent from "./components/Dashboard/TreatmentComplex/Water/WaterChlorinatorsComponent.vue";
+import OtherDistributionComponent from "./components/Dashboard/TreatmentComplex/Water/OtherDistributionComponent.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -861,9 +868,43 @@ const routes = [
     path: '/water-distribution/components/chosen',
     name: 'ChosenWaterDistributionComponents',
     component: ChosenDistributionComponenets
-  }
-
-
+  },
+  {
+    //Water - Tower Component
+    path: '/water/watertower',
+    name: 'WaterTowerComponent',
+    component: WaterTowerComponent
+  },
+  {
+    //Water - Tank Component
+    path: '/water/watertank',
+    name: 'WaterTankComponent',
+    component: WaterTankComponent
+  },
+  {
+    //Water - Valve Component
+    path: '/water/watervalve',
+    name: 'WaterValveComponent',
+    component: WaterValveComponent
+  },
+  {
+    //Water - Pump House Component
+    path: '/water/waterpumphouse',
+    name: 'WaterPumpHouseComponent',
+    component: WaterPumpHouseComponent
+  },
+  {
+    //Water - Chlorinators
+    path: '/water/waterchlorinators',
+    name: 'WaterChlorinatorsComponent',
+    component: WaterChlorinatorsComponent
+  },
+  {
+    //Water - Other Distribution Component
+    path: '/water/other',
+    name: 'OtherDistributionComponent',
+    component: OtherDistributionComponent
+  },
 
   // {
   //   path: "/asset/management/report/generation/building",

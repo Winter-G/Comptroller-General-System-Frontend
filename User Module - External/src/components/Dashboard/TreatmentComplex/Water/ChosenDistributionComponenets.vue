@@ -58,7 +58,7 @@ export default {
         watervalve: 'WaterValveComponent',
         waterpumphouse: 'WaterPumpHouseComponent',
         waterchlorinators: 'WaterChlorinatorsComponent',
-        other: 'OtherComponent'
+        other: 'OtherDistributionComponent'
       };
 
       const key = this.normalize(this.selectedComponent);
