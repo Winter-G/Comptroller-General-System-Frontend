@@ -142,6 +142,12 @@ import OtherSewerageComponent from "./components/Dashboard/TreatmentComplex/Sewe
 import DrainageBasicInfo from "./components/Dashboard/TreatmentComplex/Drainage/DrainageBasicInfo.vue"; //Drainage
 import DrainageMainComponents from "./components/Dashboard/TreatmentComplex/Drainage/DrainageMainComponents.vue";
 import ChosenDrainageComponents from "./components/Dashboard/TreatmentComplex/Drainage/ChosenDrainageComponents.vue";
+import DrainagePumpingStationComponent from "./components/Dashboard/TreatmentComplex/Drainage/DrainagePumpingStationComponent.vue";
+import OpenDrainComponent from "./components/Dashboard/TreatmentComplex/Drainage/OpenDrainComponent.vue";
+import DrainageValuation from "./components/Dashboard/TreatmentComplex/Drainage/DrainageValuation.vue";
+import CloseDrainComponent from "./components/Dashboard/TreatmentComplex/Drainage/CloseDrainComponent.vue";
+import DrainagePipeLinesComponent from "./components/Dashboard/TreatmentComplex/Drainage/DrainagePipeLinesComponent.vue";
+import GulliesAndManHolesComponent from "./components/Dashboard/TreatmentComplex/Drainage/GulliesAndManHolesComponent.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -998,6 +1004,42 @@ const routes = [
     path: '/water-drainage/components/chosen',
     name: 'ChosenDrainageComponents',
     component: ChosenDrainageComponents
+  },
+  {
+    //Drainage - Pumping Station
+    path: '/drainage/pumping-station',
+    name: 'DrainagePumpingStationComponent',
+    component: DrainagePumpingStationComponent
+  },
+  {
+    //Drainage - Open Drain
+    path: '/drainage/open-drain',
+    name: 'OpenDrainComponent',
+    component: OpenDrainComponent
+  },
+  {
+    //Drainage - Valuation
+    path: '/drainage/valuation',
+    name: 'DrainageValuation',
+    component: DrainageValuation
+  },
+  {
+    //Drainage - Close Drain
+    path: '/drainage/close-drain',
+    name: 'CloseDrainComponent',
+    component: CloseDrainComponent
+  },
+  {
+    //Drainage - Pipe Lines
+    path: '/drainage/pipe-lines',
+    name: 'DrainagePipeLinesComponent',
+    component: DrainagePipeLinesComponent
+  },
+  {
+    //Drainage -  Gullies and Man Holes
+    path: '/drainage/gullies-and-manholes',
+    name: 'GulliesAndManHolesComponent',
+    component: GulliesAndManHolesComponent
   },
 
   // {
