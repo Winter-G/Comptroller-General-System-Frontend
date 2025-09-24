@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 sewerage-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 drainage-card" @submit.prevent="submitForm">
 
       <!-- Institution Name -->
       <div class="form-row">
@@ -23,14 +23,14 @@
       <div class="form-row">
         <label><b>Assets Code:</b></label>
         <select id="assetsCode" v-model="formData.assetsCode" class="form-control">
-          <option disabled value="">6111310 – Sewerage System</option>
+          <option disabled value="">6111310 – Drainage System</option>
         </select>
       </div>
 
-      <!-- Sewerage System Covered Area -->
+      <!-- Drainage System Covered Area -->
       <div class="form-row">
-        <label><b>Sewerage System Covered<br>Area (Ex – Dehiwala)</br></b></label>
-        <input type="text" v-model="formData.sewerageArea" maxlength="50" class="form-control" required />
+        <label><b>Drainage System Covered<br>Area (Ex – Dehiwala)</br></b></label>
+        <input type="text" v-model="formData.drainageArea" maxlength="50" class="form-control" required />
       </div>
 
       <!-- NEXT button -->
@@ -50,14 +50,14 @@ export default {
         institutionName: '',
         institutionalSector: '',
         assetsCode: '',
-        sewerageArea: '',
+        drainageArea: '',
       },
     }
   },
   methods: {
     submitForm() {
       // Required base field
-      const requiredFields = ["sewerageArea"];
+      const requiredFields = ["drainageArea"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
           alert("Please fill all required fields!");
@@ -66,7 +66,7 @@ export default {
       }
 
       console.log("Form submitted:", this.formData);
-      this.$router.push({ name: "SewerageMainComponents" });
+      this.$router.push({ name: "DrainageMainComponents" });
     }
   }
 }
@@ -114,4 +114,3 @@ export default {
   text-align: right; 
 }
 </style>
-

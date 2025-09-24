@@ -1,23 +1,23 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 pipelines-force-main-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 pipelines-gravity-sewer-card" @submit.prevent="submitForm">
 
-      <!-- Total Length of Sewerage Pipe Lines - Force Main (km) -->
+      <!-- Total Length of Sewerage Pipe Lines - Gravity Sewer (km) -->
       <div class="form-row">
-        <label for="totalLength"><b>Total Length of Sewerage <br>Pipe Lines - Force Main (km)</b></label>
+        <label for="totalLength"><b>Total Length of Sewerage <br>Pipe Lines - Gravity Sewer (km)</b></label>
         <input id="totalLength" class="form-control" type="text"
                v-model="formData.totalLength" @input="validateDecimal($event, 'totalLength')" required/>
       </div>
       
       <!-- Notice -->
       <div class="alert alert-info my-3">
-        If the Cost of the Sewerage Pipe Lines – Force Main is unknown fill “0” in both fields.
+        If the Cost of the Sewerage Pipe Lines – Gravity Sewer is unknown fill “0” in both fields.
       </div>
 
-      <!-- Total Construction Cost of the Cost Known Sewerage Pipe Lines – Force Main (km) -->
+      <!-- Total Construction Cost of the Cost Known Sewerage Pipe Lines – Gravity Sewer (km) -->
       <div class="form-row same-line">
         <label class="section-label">
-          <b>Total Construction Cost of the Cost Known Sewerage Pipe Lines – Force Main (km)</b>
+          <b>Total Construction Cost of the Cost Known Sewerage Pipe Lines – Gravity Sewer (km)</b>
         </label>
 
         <div class="field-group">
@@ -33,9 +33,9 @@
         </div>
       </div>
 
-      <!-- Length of Cost Unknown Sewerage Pipe Lines – Force Main (km) -->
+      <!-- Length of Cost Unknown Sewerage Pipe Lines – Gravity Sewer (km) -->
       <div class="form-row">
-        <label for="lengthOfUnknownLines"><b>Length of Cost Unknown Sewerage Pipe Lines – Force Main (km)</b></label>
+        <label for="lengthOfUnknownLines"><b>Length of Cost Unknown Sewerage Pipe Lines – Gravity Sewer <br>(km)</b></label>
         <input id="lengthOfUnknownLines" class="form-control" type="text"
                v-model="formData.lengthOfUnknownLines" readonly disabled />
       </div>
@@ -148,5 +148,6 @@ export default {
   text-align: right; 
 }
 </style>
+
 
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 sewerage-pumping-station-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 sewerage-outlets-card" @submit.prevent="submitForm">
 
       <!-- Identification Name or No -->
       <div class="form-row">

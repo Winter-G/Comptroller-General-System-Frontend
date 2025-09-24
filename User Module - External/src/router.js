@@ -114,13 +114,12 @@ import OtherOwnStation from "./components/Dashboard/Communication/OwnStation/Oth
 import StationFacilitiesOutsourcedBasicInfo from "./components/Dashboard/Communication/StationFacilitiesOutsourced/BasicInfo.vue";
 //Treatment Complex
 import TreatmentComplexDashboard from "./components/Dashboard/TreatmentComplex/TreatmentComplexDashboard.vue"; //Treatment Complex
-import WaterBasicInfo from "./components/Dashboard/TreatmentComplex/Water/WaterBasicInfo.vue";
+import WaterBasicInfo from "./components/Dashboard/TreatmentComplex/Water/WaterBasicInfo.vue"; //Water
 import TreatmentPlant from "./components/Dashboard/TreatmentComplex/Water/TreatmentPlant.vue";
 import WaterTransmission from "./components/Dashboard/TreatmentComplex/Water/WaterTransmission.vue";
 import PipeLinesNoModal from "./components/Dashboard/TreatmentComplex/Water/PipeLinesNoModal.vue";
 import WaterDistribution from "./components/Dashboard/TreatmentComplex/Water/WaterDistribution.vue";
 import WaterDistributionComponenets from "./components/Dashboard/TreatmentComplex/Water/WaterDistributionComponenets.vue";
-
 import ChosenDistributionComponenets from "./components/Dashboard/TreatmentComplex/Water/ChosenDistributionComponenets.vue";
 import WaterTowerComponent from "./components/Dashboard/TreatmentComplex/Water/WaterTowerComponent.vue";
 import WaterTankComponent from "./components/Dashboard/TreatmentComplex/Water/WaterTankComponent.vue";
@@ -129,7 +128,7 @@ import WaterPumpHouseComponent from "./components/Dashboard/TreatmentComplex/Wat
 import WaterChlorinatorsComponent from "./components/Dashboard/TreatmentComplex/Water/WaterChlorinatorsComponent.vue";
 import OtherDistributionComponent from "./components/Dashboard/TreatmentComplex/Water/OtherDistributionComponent.vue";
 
-import SewerageBasicInfo from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageBasicInfo.vue";
+import SewerageBasicInfo from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageBasicInfo.vue"; //Sewerage
 import SewerageMainComponents from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageMainComponents.vue";
 import ChosenSewerageComponents from "./components/Dashboard/TreatmentComplex/Sewerage/ChosenSewerageComponents.vue";
 import SewerageTreatmentPlantComponent from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageTreatmentPlantComponent.vue";
@@ -137,6 +136,12 @@ import SeweragePumpingStationComponent from "./components/Dashboard/TreatmentCom
 import SewerageOutletsComponent from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageOutletsComponent.vue";
 import PipeLinesForceMainComponent from "./components/Dashboard/TreatmentComplex/Sewerage/PipeLinesForceMainComponent.vue";
 import SewerageValuation from "./components/Dashboard/TreatmentComplex/Sewerage/SewerageValuation.vue";
+import PipeLinesGravitySewerComponent from "./components/Dashboard/TreatmentComplex/Sewerage/PipeLinesGravitySewerComponent.vue";
+import OtherSewerageComponent from "./components/Dashboard/TreatmentComplex/Sewerage/OtherSewerageComponent.vue";
+
+import DrainageBasicInfo from "./components/Dashboard/TreatmentComplex/Drainage/DrainageBasicInfo.vue"; //Drainage
+import DrainageMainComponents from "./components/Dashboard/TreatmentComplex/Drainage/DrainageMainComponents.vue";
+import ChosenDrainageComponents from "./components/Dashboard/TreatmentComplex/Drainage/ChosenDrainageComponents.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -962,7 +967,38 @@ const routes = [
     path: '/sewerage/valuation',
     name: 'SewerageValuation',
     component: SewerageValuation
-  }
+  },
+  {
+    //Sewerage - Pipe Lines - Gravity Sewer
+    path: '/sewerage/pipe-lines-gravity-sewer',
+    name: 'PipeLinesGravitySewerComponent',
+    component: PipeLinesGravitySewerComponent
+  },
+  {
+    //Sewerage - Other Component
+    path: '/sewerage/other',
+    name: 'OtherSewerageComponent',
+    component: OtherSewerageComponent
+  },
+  //Drainage
+  {
+    //Drainage - Basic Info
+    path: '/treatment-complex/drainage',
+    name: 'DrainageBasicInfo',
+    component: DrainageBasicInfo
+  },
+  {
+    //Drainage - Main Components
+    path: '/water-drainage/components/main',
+    name: 'DrainageMainComponents',
+    component: DrainageMainComponents
+  },
+  {
+    //Drainage - Chosen Components
+    path: '/water-drainage/components/chosen',
+    name: 'ChosenDrainageComponents',
+    component: ChosenDrainageComponents
+  },
 
   // {
   //   path: "/asset/management/report/generation/building",

@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 other-distribution-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 other-sewerage-card" @submit.prevent="submitForm">
 
       <!-- Notice -->
        <div class="alert alert-info my-3">
@@ -69,7 +69,7 @@
           <span>Area (km²)</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.otherDistribution.unit" @change="convertToKm2" class="form-select">
+          <select v-model="formData.otherSewerage.unit" @change="convertToKm2" class="form-select">
             <option disabled value="">Select Unit</option>
             <option>Square Meters (m²)</option>
             <option>Square Kilometers (km²)</option>
@@ -83,14 +83,14 @@
 
           <input
             type="text"
-            v-model="formData.otherDistribution.area"
+            v-model="formData.otherSewerage.area"
             @input="onAreaInput"
             class="form-control"
           />
 
           <input
             type="text"
-            :value="formData.otherDistribution.areaKm"
+            :value="formData.otherSewerage.areaKm"
             readonly
             disabled
             class="form-control"
@@ -122,7 +122,7 @@ export default {
         avgWidthM: '',
         weightKg: '',
         capacityWithUnit: '',
-        otherDistribution: { unit: '', area: '', areaKm: ''},
+        otherSewerage: { unit: '', area: '', areaKm: ''},
       },
     }
   },
@@ -144,18 +144,18 @@ export default {
       let value = event.target.value.replace(/[^0-9.]/g, '');
       const parts = value.split('.');
       if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
-      this.formData.otherDistribution.area = value;
+      this.formData.otherSewerage.area = value;
       this.convertToKm2();
     },
 
     convertToKm2() {
-      const area = parseFloat(this.formData.otherDistribution.area);
-      if (isNaN(area) || !this.formData.otherDistribution.unit) {
-        this.formData.otherDistribution.areaKm = '';
+      const area = parseFloat(this.formData.otherSewerage.area);
+      if (isNaN(area) || !this.formData.otherSewerage.unit) {
+        this.formData.otherSewerage.areaKm = '';
         return;
       }
       let km2 = 0;
-      switch (this.formData.otherDistribution.unit) {
+      switch (this.formData.otherSewerage.unit) {
         case 'Square Meters (m²)': km2 = area / 1e6; break;
         case 'Square Kilometers (km²)': km2 = area; break;
         case 'Square Miles (mi²)': km2 = area * 2.58999; break;
@@ -165,7 +165,7 @@ export default {
         case 'Acres (ac)': km2 = area * 0.00404686; break;
         case 'Perches': km2 = area * 0.0000252929; break;
       }
-      this.formData.otherDistribution.areaKm = km2.toFixed(6);
+      this.formData.otherSewerage.areaKm = km2.toFixed(6);
     },
 
     submitForm() {
@@ -232,4 +232,5 @@ export default {
   text-align: right; 
 }
 </style>
+
 

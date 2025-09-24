@@ -1,14 +1,11 @@
-<!--redo styles-->
-
-
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 sewerage-pumping-station-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 sewerage-valuation-card" @submit.prevent="submitForm">
 
       <!-- Valuation -->
       <div class="form-row">
-        <label>Valuation:</label>
-        <select v-model="formData.valuation" required @change="handleValuationChange">
+        <label><b>Valuation</b></label>
+        <select v-model="formData.valuation" class="form-select" required @change="handleValuationChange">
           <option disabled value="">-- Select --</option>
           <option>Yes</option>
           <option>No</option>
@@ -17,7 +14,7 @@
 
       <!-- Valuation Value (Rs. Million) -->
       <div class="form-row">
-        <label>Valuation Value (Rs. Million):</label>
+        <label><b>Valuation Value (Rs. Million)</b></label>
         <input 
           type="number" 
           v-model="formData.valuationValue" 
@@ -25,23 +22,32 @@
           required 
           step="0.001" 
           min="0" 
-          placeholder="Enter valuation value"/>
+          placeholder="Enter valuation value"
+          class="form-control"
+        />
       </div>
 
       <!-- Date of Valuation -->
       <div class="form-row">
-        <label>Date of Valuation:</label>
+        <label><b>Date of Valuation</b></label>
         <input 
           type="date" 
           v-model="formData.valuationDate" 
           :readonly="formData.valuation === 'No'" 
-          required />
+          required 
+          class="form-control"
+        />
       </div>
 
       <!-- Remarks (if any) -->
       <div class="form-row">
-        <label>Remarks (if any):</label>
-        <input type="text" v-model="formData.remarks" maxlength="60"/>
+        <label><b>Remarks (if any)</b></label>
+        <input 
+          type="text" 
+          v-model="formData.remarks" 
+          maxlength="60" 
+          class="form-control"
+        />
       </div>
 
       <!-- NEXT button -->
@@ -67,9 +73,7 @@ export default {
   methods: {
     handleValuationChange() {
       if (this.formData.valuation === "No") {
-        // Set Value = 1 Rs.
         this.formData.valuationValue = 1;
-        // Set today's date
         this.formData.valuationDate = new Date().toISOString().split("T")[0];
       } else {
         this.formData.valuationValue = "";
@@ -96,16 +100,23 @@ export default {
 .form-row { 
   display: flex; 
   align-items: center; 
+  justify-content: center;   
   margin-bottom: 12px; 
-  gap: 12px; 
 }
+
 .form-row label { 
-  min-width: 220px; 
+  width: 250px;  
   font-weight: bold; 
+  text-align: right; 
+  margin-right: 12px;
 }
-.form-row input, .form-row select {
-   flex: 1; 
+
+.form-row input, 
+.form-row select {
+  flex: 1; 
+  max-width: 400px; 
 }
+
 .next-btn-container { 
   margin-top: 20px; 
   text-align: right; 
