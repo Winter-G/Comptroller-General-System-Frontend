@@ -148,6 +148,9 @@ import DrainageValuation from "./components/Dashboard/TreatmentComplex/Drainage/
 import CloseDrainComponent from "./components/Dashboard/TreatmentComplex/Drainage/CloseDrainComponent.vue";
 import DrainagePipeLinesComponent from "./components/Dashboard/TreatmentComplex/Drainage/DrainagePipeLinesComponent.vue";
 import GulliesAndManHolesComponent from "./components/Dashboard/TreatmentComplex/Drainage/GulliesAndManHolesComponent.vue";
+import DrainageCanalComponent from "./components/Dashboard/TreatmentComplex/Drainage/DrainageCanalComponent.vue";
+import CulvertNotInRoadComponent from "./components/Dashboard/TreatmentComplex/Drainage/CulvertNotInRoadComponent.vue";
+import OtherDrainageComponent from "./components/Dashboard/TreatmentComplex/Drainage/OtherDrainageComponent.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -1040,6 +1043,24 @@ const routes = [
     path: '/drainage/gullies-and-manholes',
     name: 'GulliesAndManHolesComponent',
     component: GulliesAndManHolesComponent
+  },
+  {
+    //Drainage - Canal
+    path: '/drainage/canal',
+    name: 'DrainageCanalComponent',
+    component: DrainageCanalComponent
+  },
+  {
+    //Drainage - Culvert - Not in Road
+    path: '/drainage/culvert-not-in-road',
+    name: 'CulvertNotInRoadComponent',
+    component: CulvertNotInRoadComponent
+  },
+  {
+    //Drainage - Other
+    path: '/drainage/other',
+    name: 'OtherDrainageComponent',
+    component: OtherDrainageComponent
   },
 
   // {

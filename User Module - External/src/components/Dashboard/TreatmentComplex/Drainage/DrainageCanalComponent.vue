@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 water-tower-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 drainage-canal-card" @submit.prevent="submitForm">
 
       <!-- Identification Name or No -->
       <div class="form-row">
@@ -8,9 +8,9 @@
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
 
-      <!-- Location -->
+      <!-- Start Point -->
       <div class="location-section">
-        <label class="section-label"><b>Location</b></label>
+        <label class="section-label"><b>Start Point</b></label>
         <div class="inline-labels compact">
           <span>District</span>
           <span>DS Division</span>
@@ -18,43 +18,66 @@
           <span>Coordinates</span>
         </div>
         <div class="inline-fields">
-          <select v-model="formData.location.district" class="form-select" required>
+          <select v-model="formData.startPoint.district" class="form-select" required>
             <option disabled value="">Select District</option>
             <option value="Colombo">Colombo</option>
           </select>
-          <select v-model="formData.location.dsDivision" class="form-select" required>
+          <select v-model="formData.startPoint.dsDivision" class="form-select" required>
             <option disabled value="">Select DS Division</option>
             <option value="Colombo">Colombo</option>
           </select>
-          <select v-model="formData.location.gnDivision" class="form-select">
+          <select v-model="formData.startPoint.gnDivision" class="form-select">
             <option disabled value="">Select GN Division</option>
             <option value="Colombo">Colombo</option>
           </select>
-          <select v-model="formData.location.coordinates" class="form-select">
+          <select v-model="formData.startPoint.coordinates" class="form-select">
             <option disabled value="">Select Coordinates</option>
             <option value="6.9271,79.8612">6.9271, 79.8612</option>
           </select>
         </div>
       </div>
 
-      <!-- Type -->
-      <div class="form-row">
-        <label><b>Type</b></label>
-        <input type="text" v-model="formData.type" maxlength="20" class="form-control" required />
+      <!-- End Point -->
+      <div class="location-section">
+        <label class="section-label"><b>End Point</b></label>
+        <div class="inline-labels compact">
+          <span>District</span>
+          <span>DS Division</span>
+          <span>GN Division</span>
+          <span>Coordinates</span>
+        </div>
+        <div class="inline-fields">
+          <select v-model="formData.endPoint.district" class="form-select" required>
+            <option disabled value="">Select District</option>
+            <option value="Colombo">Colombo</option>
+          </select>
+          <select v-model="formData.endPoint.dsDivision" class="form-select" required>
+            <option disabled value="">Select DS Division</option>
+            <option value="Colombo">Colombo</option>
+          </select>
+          <select v-model="formData.endPoint.gnDivision" class="form-select">
+            <option disabled value="">Select GN Division</option>
+            <option value="Colombo">Colombo</option>
+          </select>
+          <select v-model="formData.endPoint.coordinates" class="form-select">
+            <option disabled value="">Select Coordinates</option>
+            <option value="6.9271,79.8612">6.9271, 79.8612</option>
+          </select>
+        </div>
       </div>
 
-      <!-- Height (m) -->
+      <!-- Length (Km) -->
       <div class="form-row">
-        <label for="heightM"><b>Height (m)</b></label>
-        <input id="heightM" class="form-control" type="text" 
-                v-model="formData.heightM" @input="validateDecimal($event, 'heightM')" required />
+        <label for="lengthKm"><b>Length (Km)</b></label>
+        <input id="lengthKm" class="form-control" type="text" 
+                v-model="formData.lengthKm" @input="validateDecimal($event, 'lengthKm')" required />
       </div>
 
-      <!-- Capacity (m3) -->
+      <!-- Average Width (m) -->
       <div class="form-row">
-        <label for="capacityM3"><b>Capacity (m³)</b></label>
-        <input id="capacityM3" class="form-control" type="text" 
-               v-model="formData.capacityM3" @input="validateDecimal($event, 'capacityM3')" required />
+        <label for="avgWidthM"><b>Average Width (m)</b></label>
+        <input id="avgWidthM" class="form-control" type="text" 
+               v-model="formData.avgWidthM" @input="validateDecimal($event, 'avgWidthM')" required />
       </div>
 
       <!-- NEXT button -->
@@ -74,10 +97,10 @@ export default {
     return {
       formData: {
         identificationName: '',
-        location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
-        type: '',
-        heightM: '',
-        capacityM3: '',
+        startPoint: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
+        endPoint: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
+        lengthKm: '',
+        avgWidthM: '',
       },
     }
   },
@@ -97,7 +120,7 @@ export default {
 
     submitForm() {
       // Required base fields
-      const requiredFields = ["identificationName", "type", "heightM", "capacityM3"];
+      const requiredFields = ["identificationName", "lengthKm", "avgWidthM"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
           alert("Please fill all required fields!");
@@ -105,14 +128,23 @@ export default {
         }
       }
 
-      // Location validation
-      const locationFields = ["district", "dsDivision"];
-      for (const field of locationFields) {
-        if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
+      // Start Point validation
+      const startPointFields = ["district", "dsDivision"];
+      for (const field of startPointFields) {
+        if (!this.formData.startPoint[field]) {
+          alert("Please fill all required fields in Start Point!");
           return;
         }
       }
+
+      // End Point validation
+      const endPointFields = ["district", "dsDivision"];
+      for (const field of endPointFields) {
+        if (!this.formData.endPoint[field]) {
+          alert("Please fill all required fields in End Point!");
+          return;
+        }
+      }      
 
       console.log("Form submitted:", this.formData);
       this.$router.push({ name: "ConstructionStatus" });
@@ -168,3 +200,4 @@ export default {
   text-align: right; 
 }
 </style>
+

@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-3">
-    <form class="card shadow-sm p-4 water-tower-card" @submit.prevent="submitForm">
+    <form class="card shadow-sm p-4 culvert-not-in-road-card" @submit.prevent="submitForm">
 
       <!-- Identification Name or No -->
       <div class="form-row">
@@ -37,24 +37,25 @@
         </div>
       </div>
 
-      <!-- Type -->
+      <!-- Length (m) -->
       <div class="form-row">
-        <label><b>Type</b></label>
-        <input type="text" v-model="formData.type" maxlength="20" class="form-control" required />
+        <label for="lengthM"><b>Length (m)</b></label>
+        <input id="lengthM" class="form-control" type="text"
+                v-model="formData.lengthM" @input="validateDecimal($event, 'lengthM')" required />
       </div>
 
-      <!-- Height (m) -->
+      <!-- Average Height (m) -->
       <div class="form-row">
-        <label for="heightM"><b>Height (m)</b></label>
-        <input id="heightM" class="form-control" type="text" 
-                v-model="formData.heightM" @input="validateDecimal($event, 'heightM')" required />
+        <label for="avgHeightM"><b>Average Height (m)</b></label>
+        <input id="avgHeightM" class="form-control" type="text"
+               v-model="formData.avgHeightM" @input="validateDecimal($event, 'avgHeightM')" required />
       </div>
 
-      <!-- Capacity (m3) -->
+      <!-- Average Width (m) -->
       <div class="form-row">
-        <label for="capacityM3"><b>Capacity (m³)</b></label>
-        <input id="capacityM3" class="form-control" type="text" 
-               v-model="formData.capacityM3" @input="validateDecimal($event, 'capacityM3')" required />
+        <label for="avgWidthM"><b>Average Width (m)</b></label>
+        <input id="avgWidthM" class="form-control" type="text" 
+               v-model="formData.avgWidthM" @input="validateDecimal($event, 'avgWidthM')" required />
       </div>
 
       <!-- NEXT button -->
@@ -75,9 +76,9 @@ export default {
       formData: {
         identificationName: '',
         location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
-        type: '',
-        heightM: '',
-        capacityM3: '',
+        lengthM: '',
+        avgHeightM: '',
+        avgWidthM: '',
       },
     }
   },
@@ -97,7 +98,7 @@ export default {
 
     submitForm() {
       // Required base fields
-      const requiredFields = ["identificationName", "type", "heightM", "capacityM3"];
+      const requiredFields = ["identificationName", "lengthM", "avgHeightM", "avgWidthM"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
           alert("Please fill all required fields!");
@@ -112,7 +113,7 @@ export default {
           alert("Please fill all required fields in Location!");
           return;
         }
-      }
+      }    
 
       console.log("Form submitted:", this.formData);
       this.$router.push({ name: "ConstructionStatus" });
@@ -168,3 +169,5 @@ export default {
   text-align: right; 
 }
 </style>
+
+
