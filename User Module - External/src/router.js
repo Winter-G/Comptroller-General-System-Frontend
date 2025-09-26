@@ -151,6 +151,13 @@ import GulliesAndManHolesComponent from "./components/Dashboard/TreatmentComplex
 import DrainageCanalComponent from "./components/Dashboard/TreatmentComplex/Drainage/DrainageCanalComponent.vue";
 import CulvertNotInRoadComponent from "./components/Dashboard/TreatmentComplex/Drainage/CulvertNotInRoadComponent.vue";
 import OtherDrainageComponent from "./components/Dashboard/TreatmentComplex/Drainage/OtherDrainageComponent.vue";
+//SubFields
+import PipeLineSubField from "./components/Dashboard/TreatmentComplex/SubFields/PipeLines/PipeLine.vue";
+import DiameterWisePipeLinesModal from "./components/Dashboard/TreatmentComplex/SubFields/PipeLines/DiameterWisePipeLinesModal.vue";
+import PipeLinesUsage from "./components/Dashboard/TreatmentComplex/SubFields/PipeLines/PipeLinesUsage.vue";
+import PipeLinesConstruction from "./components/Dashboard/TreatmentComplex/SubFields/PipeLines/PipeLinesConstruction.vue";
+import ManHoleSubField from "./components/Dashboard/TreatmentComplex/SubFields/ManHole/ManHole.vue";
+import ManHoleConstruction from "./components/Dashboard/TreatmentComplex/SubFields/ManHole/ManHoleConstruction.vue";
 
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
@@ -1061,6 +1068,42 @@ const routes = [
     path: '/drainage/other',
     name: 'OtherDrainageComponent',
     component: OtherDrainageComponent
+  },
+  {
+    //Sub Fields - Pipe Lines
+    path: '/sub-fields/pipeLines',
+    name: 'PipeLineSubField',
+    component: PipeLineSubField
+  },
+  {
+    //Sub Fields - Pipe Lines - Diameter Wise Pipe Lines Modal
+    path: '/pipe-lines/diameter-wise-pipe-lines',
+    name: 'DiameterWisePipeLinesModal',
+    component: DiameterWisePipeLinesModal
+  },
+  {
+    //Sub Fields - Pipe Lines - Usage
+    path: '/pipe-lines/usage',
+    name: 'PipeLinesUsage',
+    component: PipeLinesUsage
+  },
+  {
+    //Sub Fields - Pipe Lines - Construction
+    path: '/pipe-lines/construction',
+    name: 'PipeLinesConstruction',
+    component: PipeLinesConstruction
+  },
+  {
+    //Sub Fields - Man Hole
+    path: '/sub-fields/man-hole',
+    name: 'ManHoleSubField',
+    component: ManHoleSubField
+  },
+  {
+    //Sub Fields - Man Hole - Construction
+    path: '/man-hole/construction',
+    name: 'ManHoleConstruction',
+    component: ManHoleConstruction
   },
 
   // {

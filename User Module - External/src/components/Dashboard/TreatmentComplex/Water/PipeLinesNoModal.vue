@@ -20,7 +20,6 @@
           <input
             type="text"
             v-model="pipe.diameter"
-            maxlength="10"
             class="form-control"
             @input="validateDecimal($event, pipe, 'diameter')"
           />
@@ -31,7 +30,6 @@
           <input
             type="text"
             v-model="pipe.length"
-            maxlength="10"
             class="form-control"
             @input="validateDecimal($event, pipe, 'length')"
           />
