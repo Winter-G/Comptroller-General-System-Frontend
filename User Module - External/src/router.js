@@ -159,6 +159,9 @@ import PipeLinesConstruction from "./components/Dashboard/TreatmentComplex/SubFi
 import ManHoleSubField from "./components/Dashboard/TreatmentComplex/SubFields/ManHole/ManHole.vue";
 import ManHoleConstruction from "./components/Dashboard/TreatmentComplex/SubFields/ManHole/ManHoleConstruction.vue";
 
+//Other Structures
+import OtherStructures from "./components/Dashboard/Others/OtherStructuresBasicInfo.vue";
+
 // import assetManagementAddStructure from "./components/Asset/Structure/AddStructure.vue";
 // import assetManagementAddVehicle from "./components/Asset/Vehicle/AddVehicle.vue";
 // import assetManagementUpdateVehicle from "./components/Asset/Vehicle/UpdateVehicle.vue";
@@ -1104,6 +1107,14 @@ const routes = [
     path: '/man-hole/construction',
     name: 'ManHoleConstruction',
     component: ManHoleConstruction
+  },
+
+  //Other Structures
+  {
+    //Other Structures - Basic Info
+    path: '/other-structures',
+    name: 'OtherStructures',
+    component: OtherStructures
   },
 
   // {
