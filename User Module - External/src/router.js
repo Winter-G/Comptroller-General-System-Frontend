@@ -31,6 +31,10 @@ import UsageInfo1 from "./components/Construction/UsageInfo1.vue";
 import NotCompletedConstruction from "./components/Construction/NotCompletedConstructionModel.vue";
 import StructuresVerification from "./components/DvFirstRole/StructuresVerification.vue";
 
+//Construction - Clean ver
+import CompletedConstructionClean from "./components/Construction/CompletedConstructionClean.vue";
+import NotCompletedConstructionClean from "./components/Construction/NotCompletedConstructionClean.vue";
+
 import MainComponentsView from "./components/MainComponents/MainComponentsView.vue";
 import ChosenComponentsView from "./components/MainComponents/ChosenComponentsView.vue";
 import RunwayComponent from "./components/MainComponents/RunwayComponent.vue";
@@ -396,7 +400,19 @@ const routes = [
     component: CompletedConstruction,
   },
 
-  ,
+  {
+    //Construction - completed - clean ver
+    path: "/construction/completed/clean",
+    name: "CompletedConstructionClean",
+    component: CompletedConstructionClean,
+  },
+  {
+    //Construction - not completed - clean ver'
+    path: "/construction/not-completed/clean",
+    name: "NotCompletedConstructionClean",
+    component: NotCompletedConstructionClean,
+  },
+
   {
     //Structures Verification
     path: "/dvstructures/verification",
