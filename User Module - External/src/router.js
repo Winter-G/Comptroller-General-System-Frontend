@@ -34,6 +34,8 @@ import StructuresVerification from "./components/DvFirstRole/StructuresVerificat
 //Construction - Clean ver
 import CompletedConstructionClean from "./components/Construction/CompletedConstructionClean.vue";
 import NotCompletedConstructionClean from "./components/Construction/NotCompletedConstructionClean.vue";
+import UsageInfo1Clean from "./components/Construction/UsageInfo1Clean.vue";
+import UsageInfoClean from "./components/Construction/UsageInfoClean.vue";
 
 import MainComponentsView from "./components/MainComponents/MainComponentsView.vue";
 import ChosenComponentsView from "./components/MainComponents/ChosenComponentsView.vue";
@@ -366,7 +368,7 @@ const routes = [
 
 
   {
-    //Construction - usage info1
+    //Construction - completed - usage info1
     path: "/construction/usage-info1",
     name: "UsageInfo1",
     component: UsageInfo1,
@@ -380,7 +382,7 @@ const routes = [
   },
 
   {
-    //Construction - usage info
+    //Construction - not completed - usage info
     path: "/construction/usage-info",
     name: "UsageInfo",
     component: UsageInfo,
@@ -407,10 +409,22 @@ const routes = [
     component: CompletedConstructionClean,
   },
   {
-    //Construction - not completed - clean ver'
+    //Construction - not completed - clean ver
     path: "/construction/not-completed/clean",
     name: "NotCompletedConstructionClean",
     component: NotCompletedConstructionClean,
+  },
+  {
+    //Construction - completed - usage info1
+    path: "/construction/usage-info1/clean",
+    name: "UsageInfo1Clean",
+    component: UsageInfo1Clean,
+  },
+  {
+    //Construction - not completed - usage info
+    path: "/construction/usage-info/clean",
+    name: "UsageInfoClean",
+    component: UsageInfoClean,
   },
 
   {
