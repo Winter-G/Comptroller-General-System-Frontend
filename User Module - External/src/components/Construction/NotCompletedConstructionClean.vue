@@ -185,17 +185,14 @@
       </div>
 
       <div class="modal-footer">
-        <button @click="saveAndRedirect" class="save-btn">Save</button>
+        <button @click="saveAndRedirect" class="save-btn">SAVE</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Swal from "sweetalert2";
-
 export default {
-  name: "NotCompletedConstructionModel",
   data() {
     return {
       showModal: true,
@@ -302,8 +299,48 @@ export default {
       ].includes(type);
     },
     saveAndRedirect() {
-      console.log("Form submitted:", this.fundingList);
-    },
+      
+      if (
+    !this.reason ||
+    !this.estimatedCostKnown ||
+    (this.estimatedCostKnown === "Known" && !this.estimatedCost) ||
+    !this.costKnownStatus ||
+    (this.costKnownStatus === "Known" &&
+      (!this.costIncurred || !this.costDate)) ||
+    !this.startedYearKnown ||
+    (this.startedYearKnown === "Known" && !this.startedYear) ||
+    !this.completionYearKnown ||
+    (this.completionYearKnown === "Known" && !this.completionYear) ||
+    !this.financialProgress ||
+    !this.AdditionalFundingNeeded ||
+    (this.AdditionalFundingNeeded === "Yes" && !this.AdditionalFundingAmount)
+  ) {
+    alert("Please fill in all required fields before saving.");
+    return;
+  }
+
+  console.log("Form submitted:", {
+    reason: this.reason,
+    estimatedCostKnown: this.estimatedCostKnown,
+    estimatedCost: this.estimatedCost,
+    costKnownStatus: this.costKnownStatus,
+    costIncurred: this.costIncurred,
+    costDate: this.costDate,
+    startedYearKnown: this.startedYearKnown,
+    startedYear: this.startedYear,
+    completionYearKnown: this.completionYearKnown,
+    completionYear: this.completionYear,
+    physicalProgress: this.physicalProgress,
+    financialProgress: this.financialProgress,
+    fundingList: this.fundingList,
+    AdditionalFundingNeeded: this.AdditionalFundingNeeded,
+    AdditionalFundingAmount: this.AdditionalFundingAmount,
+    contractors: this.contractors,
+    consultants: this.consultants,
+  });
+
+  this.$router.push({ name: "UsageInfoClean" });
+},
     closeModal() {
       this.showModal = false;
     },

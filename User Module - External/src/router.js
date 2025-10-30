@@ -415,13 +415,13 @@ const routes = [
     component: NotCompletedConstructionClean,
   },
   {
-    //Construction - completed - usage info1
+    //Construction - completed - usage info1 - clean ver
     path: "/construction/usage-info1/clean",
     name: "UsageInfo1Clean",
     component: UsageInfo1Clean,
   },
   {
-    //Construction - not completed - usage info
+    //Construction - not completed - usage info - clean ver
     path: "/construction/usage-info/clean",
     name: "UsageInfoClean",
     component: UsageInfoClean,

@@ -1,6 +1,6 @@
 <template>
   <div class="modal-overlay" v-if="showModal">
-    <div class="modal-content man-hole-construction-container">
+    <div class="modal-content completed-container">
       <span class="close-button" @click="closeModal">&times;</span>
 
       <div class="form-group-row">
@@ -128,8 +128,8 @@
       </div>
 
       <!-- NEXT button -->
-      <div class="next-btn-container">
-        <button type="submit" class="btn btn-primary">NEXT</button>
+       <div class="next-btn-container">
+        <button type="button" class="btn btn-primary" @click.prevent="saveAndRedirect">SAVE</button>
       </div>
     </div>
   </div>
@@ -140,14 +140,14 @@ export default {
   data() {
     return {
       showModal: true,
-        startedYearStatus: "",
-        startedYear: "",
-        completedYearStatus: "",
-        completedYear: "",
-        costStatus: "",
-        constructionCost: "",
-        contractors: "",
-        consultants: "",
+      startedYearStatus: "",
+      startedYear: "",
+      completedYearStatus: "",
+      completedYear: "",
+      costStatus: "",
+      constructionCost: "",
+      contractors: "",
+      consultants: "",
       yearsList: [],
       fundingList: [{ source: "", type: "", amount: "", agency: "" }],
     };
@@ -201,7 +201,60 @@ export default {
       ].includes(type);
     },
     saveAndRedirect() {
-      console.log("Form submitted:", this.fundingList);
+      // Required field validation (except contractors & consultants)
+      if (!this.startedYearStatus) {
+        alert("Please select Started Year status.");
+        return;
+      }
+      if (this.startedYearStatus === "Known" && !this.startedYear) {
+        alert("Please enter the Started Year.");
+        return;
+      }
+      if (!this.completedYearStatus) {
+        alert("Please select Completed Year status.");
+        return;
+      }
+      if (this.completedYearStatus === "Known" && !this.completedYear) {
+        alert("Please enter the Completed Year.");
+        return;
+      }
+      if (!this.costStatus) {
+        alert("Please select Construction Cost status.");
+        return;
+      }
+      if (this.costStatus === "Known" && !this.constructionCost) {
+        alert("Please enter the Construction Cost.");
+        return;
+      }
+
+      // Validate funding list
+      if (
+        this.fundingList.length === 0 ||
+        this.fundingList.some(
+          (f) =>
+            !f.type ||
+            !f.amount ||
+            (this.showAgencyField(f.type) && !f.agency)
+        )
+      ) {
+        alert("Please complete all required funding details.");
+        return;
+      }
+
+      const formData = {
+        startedYearStatus: this.startedYearStatus,
+        startedYear: this.startedYear,
+        completedYearStatus: this.completedYearStatus,
+        completedYear: this.completedYear,
+        costStatus: this.costStatus,
+        constructionCost: this.constructionCost,
+        fundingList: this.fundingList,
+        contractors: this.contractors,
+        consultants: this.consultants,
+      };
+
+      console.log("Form submitted:", formData);
+      this.$router.push({ name: "UsageInfo1Clean" });
     },
     closeModal() {
       this.showModal = false;
