@@ -4,13 +4,13 @@
 
       <!-- Institution Name -->
       <div class="form-row">
-        <label><b>Institution Name:</b></label>
+        <label><b>Institution Name:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionName" class="form-control" disabled />
       </div>
 
       <!-- Institutional Sector -->
       <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
+        <label><b>Institutional Sector:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
       </div>
 
@@ -21,7 +21,7 @@
 
       <!-- Assets Code -->
       <div class="form-row">
-        <label for="assetsCode"><b>Assets Code:</b></label>
+        <label for="assetsCode"><b>Assets Code:</b><span class="text-danger">*</span></label>
         <select id="assetsCode" v-model="formData.assetsCode" class="form-control" required>
           <option disabled value="">Select Assets Code</option>
           <option value="6111307 - Structures Associated with Mining Minerales and Subsoil assets">6111307 - Structures Associated with Mining Minerales and Subsoil assets</option>
@@ -30,10 +30,11 @@
           <option value="6111317 - Other not specified above">6111317 - Other not specified above</option>
         </select>
       </div>
+      <p v-if="errors.assetsCode" class="error-text">{{ errors.assetsCode }}</p>
 
       <!-- Type of the Structure -->
       <div class="form-row">
-        <label for="structureType"><b>Type of the Structure:</b></label>
+        <label for="structureType"><b>Type of the Structure:</b><span class="text-danger">*</span></label>
         <select id="structureType" v-model="formData.structureType" class="form-control" required>
           <option disabled value="">Select Type of Structure</option>
           <option value="Fence">Fence</option>
@@ -62,26 +63,29 @@
           required
         />
       </div>
+      <p v-if="errors.structureType" class="error-text">{{ errors.structureType }}</p>
 
       <!-- Identification Name or No -->
       <div class="form-row mt-2">
-        <label for="nameId"><b>Identification Name or No</b></label>
+        <label for="nameId"><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" id="nameId" maxlength="50" v-model="formData.nameId" class="form-control" required />
       </div>
+      <p v-if="errors.nameId" class="error-text">{{ errors.nameId }}</p>
 
       <!-- Description of the Structure -->
       <div class="form-row">
-        <label><b>Description of the Structure:</b></label>
+        <label><b>Description of the Structure:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.description" class="form-control" maxlength="200" required />
       </div>
+      <p v-if="errors.description" class="error-text">{{ errors.description }}</p>
 
       <!-- Location (Start) -->
       <div class="location-section">
-        <label class="section-label"><b>Location (Start)</b></label>
+        <label class="section-label"><b>Location (Start)</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
-          <span>GN Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
+          <span>GN Division<span class="text-danger">*</span></span>
           <span>Coordinates</span>
         </div>
         <div class="inline-fields">
@@ -103,14 +107,15 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.locationStart" class="error-text">{{ errors.locationStart }}</p>
 
       <!-- Location (End) -->
       <div class="location-section">
-        <label class="section-label"><b>Location (End)</b></label>
+        <label class="section-label"><b>Location (End)</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
-          <span>GN Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
+          <span>GN Division<span class="text-danger">*</span></span>
           <span>Coordinates</span>
         </div>
         <div class="inline-fields">
@@ -132,12 +137,14 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.locationEnd" class="error-text">{{ errors.locationEnd }}</p>
 
       <!-- Purpose of Usage -->
       <div class="form-row">
-        <label><b>Purpose of Usage:</b></label>
+        <label><b>Purpose of Usage:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.purposeOfUsage" class="form-control" maxlength="100" required />
       </div>
+      <p v-if="errors.purposeOfUsage" class="error-text">{{ errors.purposeOfUsage }}</p>
 
       <!-- Measurements -->
       <div class="form-row">
@@ -194,6 +201,7 @@ export default {
         avgDepth: "",
         avgWidth: "",
       },
+      errors: {}
     };
   },
   methods: {
@@ -207,37 +215,29 @@ export default {
       this.formData[field] = value;
     },
 
-    submitForm() {
-      const requiredFields = [
-        "assetsCode",
-        "structureType",
-        "nameId",
-        "description",
-        "purposeOfUsage",
-      ];
+submitForm() {
+  this.errors = {}; 
 
-      const locationFields = ["district", "dsDivision", "gnDivision"];
+  // Required base fields
+  if (!this.formData.assetsCode) this.errors.assetsCode = "This field is required.";
+  if (!this.formData.structureType) this.errors.structureType = "This field is required.";
+  if (!this.formData.nameId) this.errors.nameId = "This field is required.";
+  if (!this.formData.description) this.errors.description = "This field is required.";
+  if (!this.formData.purposeOfUsage) this.errors.purposeOfUsage = "This field is required.";
 
-      for (const field of requiredFields) {
-        if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
-        }
-      }
+  // Location validation
+  ["locationStart", "locationEnd"].forEach(loc => {
+    const locData = this.formData[loc];
+    if (!locData.district || !locData.dsDivision || !locData.gnDivision) {
+      this.errors[loc] = "Please fill all required fields in this Location!";
+    }
+  });
 
-      for (const field of locationFields) {
-        if (!this.formData.locationStart[field]) {
-          alert("Please fill all required fields in Location (Start)!");
-          return;
-        }
-        if (!this.formData.locationEnd[field]) {
-          alert("Please fill all required fields in Location (End)!");
-          return;
-        }
-      }
+  // Stop submission if there are errors
+  if (Object.keys(this.errors).length) return;
 
-      this.$router.push({ name: "ConstructionStatus" });
-    },
+  this.$router.push({ name: "ConstructionStatus" });
+},
   },
 };
 </script>
@@ -256,6 +256,15 @@ export default {
 .form-row input,
 .form-row select {
   flex: 1;
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section {
   margin-bottom: 20px;
