@@ -5,11 +5,12 @@
 
     <div class="pipe-lines-no-modal card shadow p-4">
       <!-- No of Pipe Lines -->
-      <h5><b>No of Pipe Lines</b></h5>
-      <select v-model.number="noOfPipeLines" class="form-select mb-3">
+      <h5><b>No of Pipe Lines</b><span class="text-danger">*</span></h5>
+      <select v-model.number="noOfPipeLines" class="form-select mb-3" :class="{'is-invalid': showErrors && !noOfPipeLines}">
         <option value="">Select</option>
         <option v-for="n in 50" :key="n" :value="n">{{ n }}</option>
       </select>
+      <div v-if="showErrors && !noOfPipeLines" class="error-text">Please select number of pipe lines.</div>
 
       <!-- Pipe Line Inputs -->
       <div v-for="(pipe, index) in pipeLines.slice(0, visiblePipeLines)" :key="index" class="pipe-line-block mb-4 border rounded p-3">
@@ -57,32 +58,29 @@ export default {
       noOfPipeLines: "",      
       pipeLines: [],          
       visiblePipeLines: 1,    
+      showErrors: false
     };
   },
-watch: {
-  noOfPipeLines(newVal) {
-    if (!newVal || newVal <= 0) return;
+  watch: {
+    noOfPipeLines(newVal) {
+      if (!newVal || newVal <= 0) return;
 
-    const currentLength = this.pipeLines.length;
+      const currentLength = this.pipeLines.length;
 
-    if (newVal > currentLength) {
-      // Add empty objects to match the new number
-      const extraRows = Array.from({ length: newVal - currentLength }, () => ({
-        diameter: "",
-        length: "",
-      }));
-      this.pipeLines = [...this.pipeLines, ...extraRows];
-    } else if (newVal < currentLength) {
-      // Remove extra rows if newVal is less
-      this.pipeLines = this.pipeLines.slice(0, newVal);
-    }
+      if (newVal > currentLength) {
+        const extraRows = Array.from({ length: newVal - currentLength }, () => ({
+          diameter: "",
+          length: "",
+        }));
+        this.pipeLines = [...this.pipeLines, ...extraRows];
+      } else if (newVal < currentLength) {
+        this.pipeLines = this.pipeLines.slice(0, newVal);
+      }
 
-    // Adjust visiblePipeLines if it exceeds newVal
-    if (this.visiblePipeLines > newVal) this.visiblePipeLines = newVal;
-    if (this.visiblePipeLines < 1) this.visiblePipeLines = 1;
+      if (this.visiblePipeLines > newVal) this.visiblePipeLines = newVal;
+      if (this.visiblePipeLines < 1) this.visiblePipeLines = 1;
+    },
   },
-},
-
   methods: {
     validateDecimal(event, obj, field) {
       let value = event.target.value.replace(/[^0-9.]/g, ""); 
@@ -93,13 +91,16 @@ watch: {
     },
 
     addNewPipeLine() {
-      // Only increase visiblePipeLines if it's less than chosen number
       if (this.visiblePipeLines < this.noOfPipeLines) {
         this.visiblePipeLines++;
       }
     },
 
     goToConstruction() {
+      this.showErrors = true;
+
+      if (!this.noOfPipeLines) return;
+
       console.log("Pipe Lines Data:", this.pipeLines.slice(0, this.visiblePipeLines));
       this.$emit("updatePipeLines", this.pipeLines.slice(0, this.visiblePipeLines));
       this.$router.push({ name: "ConstructionStatus" });
@@ -127,6 +128,15 @@ watch: {
 .form-row select {
   flex: 1;
 }
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
 .close-btn {
   position: absolute;
   top: 12px;
@@ -143,5 +153,3 @@ watch: {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 </style>
-
-

@@ -4,17 +4,18 @@
 
       <!-- Valuation -->
       <div class="form-row">
-        <label><b>Valuation</b></label>
+        <label><b>Valuation</b><span class="text-danger">*</span></label>
         <select v-model="formData.valuation" class="form-select" required @change="handleValuationChange">
           <option disabled value="">-- Select --</option>
           <option>Yes</option>
           <option>No</option>
         </select>
       </div>
+      <p v-if="errors.valuation" class="error-text">{{ errors.valuation }}</p>
 
       <!-- Valuation Value (Rs. Million) -->
       <div class="form-row">
-        <label><b>Valuation Value (Rs. Million)</b></label>
+        <label><b>Valuation Value (Rs. Million)</b><span class="text-danger">*</span></label>
         <input 
           type="number" 
           v-model="formData.valuationValue" 
@@ -26,10 +27,11 @@
           class="form-control"
         />
       </div>
+      <p v-if="errors.valuationValue" class="error-text">{{ errors.valuationValue }}</p>
 
       <!-- Date of Valuation -->
       <div class="form-row">
-        <label><b>Date of Valuation</b></label>
+        <label><b>Date of Valuation</b><span class="text-danger">*</span></label>
         <input 
           type="date" 
           v-model="formData.valuationDate" 
@@ -38,6 +40,7 @@
           class="form-control"
         />
       </div>
+      <p v-if="errors.valuationDate" class="error-text">{{ errors.valuationDate }}</p>
 
       <!-- Remarks (if any) -->
       <div class="form-row">
@@ -68,6 +71,7 @@ export default {
         valuationDate: '',
         remarks: '',
       },
+      errors: {}
     }
   },
   methods: {
@@ -84,8 +88,7 @@ export default {
       const requiredFields = ["valuation", "valuationValue", "valuationDate"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -115,6 +118,17 @@ export default {
 .form-row select {
   flex: 1; 
   max-width: 400px; 
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 
 .next-btn-container { 

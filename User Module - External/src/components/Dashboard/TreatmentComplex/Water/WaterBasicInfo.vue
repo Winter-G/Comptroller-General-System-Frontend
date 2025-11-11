@@ -4,13 +4,13 @@
 
       <!-- Institution Name -->
       <div class="form-row">
-        <label><b>Institution Name:</b></label>
+        <label><b>Institution Name:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionName" class="form-control" disabled />
       </div>
 
       <!-- Institutional Sector -->
       <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
+        <label><b>Institutional Sector:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
       </div>
 
@@ -21,7 +21,7 @@
 
       <!-- Assets Code -->
       <div class="form-row">
-        <label><b>Assets Code:</b></label>
+        <label><b>Assets Code:</b><span class="text-danger">*</span></label>
         <select id="assetsCode" v-model="formData.assetsCode" class="form-control" @change="goToPage">
           <option disabled value="">Select Assets Code</option>
           <option value="/water/treatment-plant">6111310 – Water Treatment Plant</option>
@@ -68,6 +68,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section { 
   margin-bottom: 20px; 

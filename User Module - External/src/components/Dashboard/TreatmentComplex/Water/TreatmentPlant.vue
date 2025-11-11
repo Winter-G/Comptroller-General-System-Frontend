@@ -4,19 +4,20 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No​</b></label>
+        <label><b>Identification Name or No​</b><span class="text-danger">*</span></label>
         <select v-model="formData.identificationName" class="form-control" required>
           <option disabled value="">Select Identification</option>
           <option value="1">1</option>
         </select>
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Location -->
       <div class="location-section">
-        <label class="section-label"><b>Location</b></label>
+        <label class="section-label"><b>Location</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -38,23 +39,25 @@
             <option value="6.9271,79.8612">6.9271, 79.8612</option>
           </select>
         </div>
+        <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
       </div>
 
       <!-- Capacity -->
-        <div class="form-row">
-          <label for="capacityM3"><b>Capacity (M3 per day)​</b></label>
-          <input id="capacityM3" class="form-control" type="text" maxlength="10"
-                 v-model="formData.capacityM3" @input="validateDecimal($event, 'capacityM3')" required />
-        </div>
+      <div class="form-row">
+        <label for="capacityM3"><b>Capacity (M3 per day)​</b><span class="text-danger">*</span></label>
+        <input id="capacityM3" class="form-control" type="text" maxlength="10"
+               v-model="formData.capacityM3" @input="validateDecimal($event, 'capacityM3')" required />
+      </div>
+      <p v-if="errors.capacityM3" class="error-text">{{ errors.capacityM3 }}</p>
 
       <!-- Land Area -->
       <div class="location-section">
-        <label class="section-label"><b>Land Area</b></label>
+        <label class="section-label"><b>Land Area</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>Measurement Unit</span>
-          <span>Area</span>
+          <span>Measurement Unit<span class="text-danger">*</span></span>
+          <span>Area<span class="text-danger">*</span></span>
           <span>Area (km²)</span>
-          <span>Ownership</span>
+          <span>Ownership<span class="text-danger">*</span></span>
           <span v-if="formData.treatmentPlant.landOwnership === 'Own by Other Party'">Land Owner</span>
         </div>
         <div class="inline-fields">
@@ -70,28 +73,13 @@
             <option>Perches</option>
           </select>
 
-          <input
-            type="text"
-            v-model="formData.treatmentPlant.area"
-            @input="onAreaInput"
-            class="form-control"
-            required
-          />
-
-          <input
-            type="text"
-            :value="formData.treatmentPlant.areaKm"
-            readonly
-            disabled
-            class="form-control"
-          />
-
+          <input type="text" v-model="formData.treatmentPlant.area" @input="onAreaInput" class="form-control" required />
+          <input type="text" :value="formData.treatmentPlant.areaKm" readonly disabled class="form-control" />
           <select v-model="formData.treatmentPlant.landOwnership" class="form-select" required>
             <option disabled value="">Select Land Ownership</option>
             <option>Own</option>
             <option>Own by Other Party</option>
           </select>
-
           <input
             v-if="formData.treatmentPlant.landOwnership === 'Own by Other Party'"
             type="text"
@@ -101,6 +89,7 @@
             :required="formData.treatmentPlant.landOwnership === 'Own by Other Party'"
           />
         </div>
+        <p v-if="errors.treatmentPlant" class="error-text">{{ errors.treatmentPlant }}</p>
       </div>
 
       <!-- Notice -->
@@ -111,7 +100,7 @@
 
       <!-- Ownership -->
       <div class="form-row">
-        <label><b>Ownership</b></label>
+        <label><b>Ownership</b><span class="text-danger">*</span></label>
         <select v-model="formData.ownership" class="form-control" required>
           <option disabled value="">Select Ownership</option>
           <option>Own</option>
@@ -123,32 +112,35 @@
           <option>Rented out</option>
         </select>
       </div>
+      <p v-if="errors.ownership" class="error-text">{{ errors.ownership }}</p>
 
       <!-- Conditional Sections -->
       <div v-if="formData.ownership === 'Own (Transfer in)'" class="form-row">
-        <label>From Whom</label>
+        <label>From Whom<span class="text-danger">*</span></label>
         <input type="text" v-model="formData.fromWhom" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.fromWhom" class="error-text">{{ errors.fromWhom }}</p>
 
       <div v-if="formData.ownership === 'Own (Transfer out)'" class="form-row">
-        <label>To Whom</label>
+        <label>To Whom<span class="text-danger">*</span></label>
         <input type="text" v-model="formData.toWhom" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.toWhom" class="error-text">{{ errors.toWhom }}</p>
 
       <div v-if="['Leased', 'Rented'].includes(formData.ownership)">
         <div class="form-row">
-          <label>From Whom</label>
+          <label>From Whom<span class="text-danger">*</span></label>
           <input type="text" v-model="formData.fromWhom" maxlength="50" class="form-control" required />
         </div>
         <div class="form-row">
-          <label>Period</label>
+          <label>Period<span class="text-danger">*</span></label>
           <div class="d-flex gap-2">
             <div>From <input type="month" v-model="formData.periodFrom" class="form-control" required /></div>
             <div>To <input type="month" v-model="formData.periodTo" class="form-control" required /></div>
           </div>
         </div>
         <div class="form-row">
-          <label>Payment Method</label>
+          <label>Payment Method<span class="text-danger">*</span></label>
           <select v-model="formData.paymentMethod" class="form-select" required>
             <option disabled value="">Select Method</option>
             <option>One time payment</option>
@@ -157,25 +149,26 @@
           </select>
         </div>
         <div class="form-row">
-          <label>Payment (Rs. Million)</label>
+          <label>Payment (Rs. Million)<span class="text-danger">*</span></label>
           <input type="text" v-model="formData.payment" @input="validateMoney($event, 'payment')" class="form-control" required />
         </div>
+        <p v-if="errors.leaseRent" class="error-text">{{ errors.leaseRent }}</p>
       </div>
 
       <div v-if="['Leased out', 'Rented out'].includes(formData.ownership)">
         <div class="form-row">
-          <label>To Whom</label>
+          <label>To Whom<span class="text-danger">*</span></label>
           <input type="text" v-model="formData.toWhom" maxlength="50" class="form-control" required />
         </div>
         <div class="form-row">
-          <label>Period</label>
+          <label>Period<span class="text-danger">*</span></label>
           <div class="d-flex gap-2">
             <div>From <input type="month" v-model="formData.periodFrom" class="form-control" required /></div>
             <div>To <input type="month" v-model="formData.periodTo" class="form-control" required /></div>
           </div>
         </div>
         <div class="form-row">
-          <label>Payment Method</label>
+          <label>Payment Method<span class="text-danger">*</span></label>
           <select v-model="formData.paymentMethod" class="form-select" required>
             <option disabled value="">Select Method</option>
             <option>One time payment</option>
@@ -184,9 +177,10 @@
           </select>
         </div>
         <div class="form-row">
-          <label>Income (Rs. Million)</label>
+          <label>Income (Rs. Million)<span class="text-danger">*</span></label>
           <input type="text" v-model="formData.income" @input="validateMoney($event, 'income')" class="form-control" required />
         </div>
+        <p v-if="errors.leaseRentOut" class="error-text">{{ errors.leaseRentOut }}</p>
       </div>
 
       <!-- NEXT button -->
@@ -194,13 +188,10 @@
         <button type="submit" class="btn btn-primary">NEXT</button>
       </div>
     </form>
-    
   </div>
 </template>
 
-
 <script>
-
 export default {
   data() {
     return {
@@ -218,10 +209,11 @@ export default {
         payment: '', 
         income: ''
       },
+      errors: {}
     }
   },
   methods: {
-      validateDecimal(e, field) {
+    validateDecimal(e, field) {
       e.target.value = e.target.value.replace(/[^0-9.]/g, "");
       if ((e.target.value.match(/\./g) || []).length > 1) {
         e.target.value = e.target.value.substring(0, e.target.value.length - 1);
@@ -272,34 +264,36 @@ export default {
     },
 
     submitForm() {
+      this.errors = {};
+
       // Required base fields
-      const requiredFields = ["identificationName", "capacityM3", "ownership"];
-      for (const field of requiredFields) {
-        if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
-        }
-      }
+      if (!this.formData.identificationName) this.errors.identificationName = "Identification is required.";
+      if (!this.formData.capacityM3) this.errors.capacityM3 = "Capacity is required.";
+      if (!this.formData.ownership) this.errors.ownership = "Ownership is required.";
 
       // Location validation
-      const locationFields = ["district", "dsDivision"];
-      for (const field of locationFields) {
-        if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
-          return;
-        }
-      }
+      if (!this.formData.location.district || !this.formData.location.dsDivision)
+        this.errors.location = "Please complete required location fields.";
 
-      //Treatment Plant Validation
+      // Treatment Plant Validation
       const ff = this.formData.treatmentPlant;
-      if (!ff.unit || !ff.area || !ff.landOwnership || (ff.landOwnership === 'Own by Other Party' && !ff.landOwner)) {
-        alert("Please fill all required Treatment Plant fields!"); return;
-      }
+      if (!ff.unit || !ff.area || !ff.landOwnership || (ff.landOwnership === 'Own by Other Party' && !ff.landOwner))
+        this.errors.treatmentPlant = "Please fill all required Land Area fields.";
+
+      // Ownership-based checks
       const { ownership, fromWhom, toWhom, periodFrom, periodTo, paymentMethod, payment, income } = this.formData;
-      if (ownership === "Own (Transfer in)" && !fromWhom) { alert("Please fill 'From Whom'!"); return; }
-      if (ownership === "Own (Transfer out)" && !toWhom) { alert("Please fill 'To Whom'!"); return; }
-      if (["Leased","Rented"].includes(ownership) && (!fromWhom || !periodFrom || !periodTo || !paymentMethod || !payment)) { alert("Please fill all lease/rent fields!"); return; }
-      if (["Leased out","Rented out"].includes(ownership) && (!toWhom || !periodFrom || !periodTo || !paymentMethod || !income)) { alert("Please fill all lease/rent out fields!"); return; }
+
+      if (ownership === "Own (Transfer in)" && !fromWhom)
+        this.errors.fromWhom = "Please fill 'From Whom'.";
+      if (ownership === "Own (Transfer out)" && !toWhom)
+        this.errors.toWhom = "Please fill 'To Whom'.";
+      if (["Leased", "Rented"].includes(ownership) && (!fromWhom || !periodFrom || !periodTo || !paymentMethod || !payment))
+        this.errors.leaseRent = "Please fill all lease/rent fields.";
+      if (["Leased out", "Rented out"].includes(ownership) && (!toWhom || !periodFrom || !periodTo || !paymentMethod || !income))
+        this.errors.leaseRentOut = "Please fill all lease/rent out fields.";
+
+      // Stop if errors exist
+      if (Object.keys(this.errors).length > 0) return;
 
       console.log("Form submitted:", this.formData);
       this.$router.push({ name: "ConstructionStatus" });
@@ -322,10 +316,14 @@ export default {
 .form-row input, .form-row select {
    flex: 1; 
 }
-.type-inline.same-line {
-  display: flex;
-  gap: 12px;
-  flex: 1;
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section { 
   margin-bottom: 20px; 

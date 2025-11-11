@@ -4,10 +4,11 @@
 
       <!-- Total Number of Gullies and Manholes (km) -->
       <div class="form-row">
-        <label for="totalNumber"><b>Total Number of Gullies and Manholes (km)</b></label>
+        <label for="totalNumber"><b>Total Number of Gullies and Manholes (km)</b><span class="text-danger">*</span></label>
         <input id="totalNumber" class="form-control" type="text"
                v-model="formData.totalNumber" @input="validateDecimal($event, 'totalNumber')" required/>
       </div>
+      <p v-if="errors.totalNumber" class="error-text">{{ errors.totalNumber }}</p>
       
       <!-- Notice -->
       <div class="alert alert-info my-3">
@@ -17,7 +18,7 @@
       <!-- Total Construction Cost of the Cost Known Gullies and Manholes -->
       <div class="form-row same-line">
         <label class="section-label">
-          <b>Total Construction Cost of the Cost Known Gullies and Manholes</b>
+          <b>Total Construction Cost of the Cost Known Gullies and Manholes</b><span class="text-danger">*</span>
         </label>
 
         <div class="field-group">
@@ -32,13 +33,15 @@
                  @input="validateNumber($event, 'cost')" required>
         </div>
       </div>
+      <p v-if="errors.construction" class="error-text">{{ errors.construction }}</p>
 
       <!-- Number of Cost Unknown Gullies and Man Holes (km) -->
       <div class="form-row">
-        <label for="lengthOfUnknown"><b>Number of Cost Unknown Gullies and Man Holes (km)</b></label>
+        <label for="lengthOfUnknown"><b>Number of Cost Unknown Gullies and Man Holes (km)</b><span class="text-danger">*</span></label>
         <input id="lengthOfUnknown" class="form-control" type="text"
                v-model="formData.lengthOfUnknown" readonly disabled />
       </div>
+      <p v-if="errors.lengthOfUnknown" class="error-text">{{ errors.lengthOfUnknown }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -57,6 +60,7 @@ export default {
         construction: { number: '', cost: '' },
         lengthOfUnknown: '',
       },
+      errors: {}
     }
   },
   watch: {
@@ -93,15 +97,13 @@ export default {
       const requiredFields = ["totalNumber", "lengthOfUnknown"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
       const constructionFields = ["count", "cost"];
       for (const field of constructionFields) {
         if (!this.formData.construction[field]) {
-          alert("Please fill all required fields in Construction!");
-          return;
+          this.errors.construction = "Please fill all required fields in Construction!";
         }
       }
       console.log("Form submitted:", this.formData);
@@ -124,6 +126,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .form-row.same-line {
   display: flex;

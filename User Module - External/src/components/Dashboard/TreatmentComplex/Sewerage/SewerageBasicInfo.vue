@@ -4,13 +4,13 @@
 
       <!-- Institution Name -->
       <div class="form-row">
-        <label><b>Institution Name:</b></label>
+        <label><b>Institution Name:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionName" class="form-control" disabled />
       </div>
 
       <!-- Institutional Sector -->
       <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
+        <label><b>Institutional Sector:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
       </div>
 
@@ -21,7 +21,7 @@
 
       <!-- Assets Code -->
       <div class="form-row">
-        <label><b>Assets Code:</b></label>
+        <label><b>Assets Code:</b><span class="text-danger">*</span></label>
         <select id="assetsCode" v-model="formData.assetsCode" class="form-control">
           <option disabled value="">6111310 – Sewerage System</option>
         </select>
@@ -29,7 +29,7 @@
 
       <!-- Sewerage System Covered Area -->
       <div class="form-row">
-        <label><b>Sewerage System Covered<br>Area (Ex – Dehiwala)</br></b></label>
+        <label><b>Sewerage System Covered<br>Area (Ex – Dehiwala)</br></b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.sewerageArea" maxlength="50" class="form-control" required />
       </div>
 
@@ -85,6 +85,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section { 
   margin-bottom: 20px; 

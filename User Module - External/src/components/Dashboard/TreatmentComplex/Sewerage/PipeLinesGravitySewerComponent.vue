@@ -4,10 +4,11 @@
 
       <!-- Total Length of Sewerage Pipe Lines - Gravity Sewer (km) -->
       <div class="form-row">
-        <label for="totalLength"><b>Total Length of Sewerage <br>Pipe Lines - Gravity Sewer (km)</b></label>
+        <label for="totalLength"><b>Total Length of Sewerage <br>Pipe Lines - Gravity Sewer (km)</b><span class="text-danger">*</span></label>
         <input id="totalLength" class="form-control" type="text"
                v-model="formData.totalLength" @input="validateDecimal($event, 'totalLength')" required/>
       </div>
+      <p v-if="errors.totalLength" class="error-text">{{ errors.totalLength }}</p>
       
       <!-- Notice -->
       <div class="alert alert-info my-3">
@@ -17,7 +18,7 @@
       <!-- Total Construction Cost of the Cost Known Sewerage Pipe Lines – Gravity Sewer (km) -->
       <div class="form-row same-line">
         <label class="section-label">
-          <b>Total Construction Cost of the Cost Known Sewerage Pipe Lines – Gravity Sewer (km)</b>
+          <b>Total Construction Cost of the Cost Known Sewerage Pipe Lines – Gravity Sewer (km)</b><span class="text-danger">*</span>
         </label>
 
         <div class="field-group">
@@ -32,13 +33,15 @@
                  @input="validateNumber($event, 'cost')" required>
         </div>
       </div>
+      <p v-if="errors.construction" class="error-text">{{ errors.construction }}</p>
 
       <!-- Length of Cost Unknown Sewerage Pipe Lines – Gravity Sewer (km) -->
       <div class="form-row">
-        <label for="lengthOfUnknownLines"><b>Length of Cost Unknown Sewerage Pipe Lines – Gravity Sewer <br>(km)</b></label>
+        <label for="lengthOfUnknownLines"><b>Length of Cost Unknown Sewerage Pipe Lines – Gravity Sewer <br>(km)</b><span class="text-danger">*</span></label>
         <input id="lengthOfUnknownLines" class="form-control" type="text"
                v-model="formData.lengthOfUnknownLines" readonly disabled />
       </div>
+      <p v-if="errors.lengthOfUnknownLines" class="error-text">{{ errors.lengthOfUnknownLines }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -57,6 +60,7 @@ export default {
         construction: { length: '', cost: '' },
         lengthOfUnknownLines: '',
       },
+      errors: {}
     }
   },
   watch: {
@@ -93,15 +97,13 @@ export default {
       const requiredFields = ["totalLength", "lengthOfUnknownLines"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
       const constructionFields = ["length", "cost"];
       for (const field of constructionFields) {
         if (!this.formData.construction[field]) {
-          alert("Please fill all required fields in Construction!");
-          return;
+          this.errors.construction = "Please fill all required fields in Construction!";
         }
       }
       console.log("Form submitted:", this.formData);
@@ -124,6 +126,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .form-row.same-line {
   display: flex;

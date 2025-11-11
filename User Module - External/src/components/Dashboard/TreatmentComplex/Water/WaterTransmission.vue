@@ -4,28 +4,30 @@
 
       <!-- Name of the Water Treatment Plant -->
       <div class="form-row">
-        <label><b>Name of the  Water Treatment Plant​​</b></label>
+        <label><b>Name of the  Water Treatment Plant​​</b><span class="text-danger">*</span></label>
         <select v-model="formData.treatmentPlantName" class="form-control" required>
           <option disabled value="">Select Water Treatment Plant</option>
           <option value="Name 1">Name 1</option>
         </select>
       </div>
+      <p v-if="errors.treatmentPlantName" class="error-text">{{ errors.treatmentPlantName }}</p>
 
       <!-- Transmission Line Name ​ -->
       <div class="form-row">
-        <label for="transmissionLine-name"><b>Transmission Line Name​</b></label>
+        <label for="transmissionLine-name"><b>Transmission Line Name​</b><span class="text-danger">*</span></label>
         <input type="text" id="transmissionLine-name" maxlength="50" v-model="formData.transmissionLineName" class="form-control" placeholder="Ex – Abathale - Dehiwala​" required>
       </div>
+      <p v-if="errors.transmissionLineName" class="error-text">{{ errors.transmissionLineName }}</p>
 
       <!-- Location of the Distribution Tank ​ -->
       <div class="location-section">
-        <label class="section-label"><b>Location of the Distribution Tank</b></label>
+        <label class="section-label"><b>Location of the Distribution Tank</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
-          <span>Distance from the Treatment Plant (km)​</span>
+          <span>Distance from the Treatment Plant (km)​<span class="text-danger">*</span></span>
         </div>
         <div class="inline-fields">
           <select v-model="formData.location.district" class="form-select" required>
@@ -47,10 +49,11 @@
           <input type="text" v-model="formData.location.distanceFromTreatmentPlant" class="form-control" @input="validateDecimal($event, 'distanceFromTreatmentPlant')" required />
         </div>
       </div>
+      <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
 
       <!-- Land Reservation Area​ -->
       <div class="form-row">
-        <label><b>Land Reservation Area​</b></label>
+        <label><b>Land Reservation Area​</b><span class="text-danger">*</span></label>
         <select v-model="formData.landReservationArea" class="form-control" required>
           <option disabled value="">Select Land Reservation Area</option>
           <option value="Yes - (Land Reservation Area Known)">Yes - (Land Reservation Area Known)</option>
@@ -66,7 +69,8 @@
             placeholder="Enter Land Reservation Area – Width (m)​"
             :required="formData.landReservationArea === 'Yes - (Land Reservation Area Known)'" @input="validateDecimal($event, 'areaWidth')"
             />
-      </div>      
+      </div>    
+      <p v-if="errors.landReservationArea" class="error-text">{{ errors.landReservationArea }}</p>  
       
       <!-- Popup Modal -->
       <div v-if="showNoOfPipeLinesPopup" class="popup-overlay">
@@ -106,6 +110,7 @@ export default {
           { diameter: '', length: '' }
         ]
       },
+      errors: {}
     }
   },
   methods: {
@@ -167,26 +172,23 @@ export default {
     },
 
     submitForm() {
+      this.errors = {};
+
       // Required base fields
       const requiredFields = ["treatmentPlantName", "transmissionLineName", "landReservationArea"];
       for (const field of requiredFields) {
-        if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
-        }
+        if (!this.formData[field]) this.errors[field] = "This field is required.";
       }
         // Land Reservation Area - Width validation
         if (this.formData.landReservationArea === 'Yes - (Land Reservation Area Known)' && !this.formData.areaWidth) {
-            alert("Please fill the Land Reservation Area – Width!");
-            return;
+          this.errors.landReservationArea = "Please provide the Land Reservation Area Width.";
         }
 
       // Location validation
       const locationFields = ["district", "dsDivision", "distanceFromTreatmentPlant"];
       for (const field of locationFields) {
         if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -211,6 +213,17 @@ export default {
 .form-row input, .form-row select {
    flex: 1; 
 }
+
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
+}
+
 .type-inline.same-line {
   display: flex;
   gap: 12px;

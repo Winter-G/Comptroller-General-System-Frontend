@@ -5,7 +5,7 @@
       <div class="centered-fields">
         <!-- Name or Identification Number -->
         <div class="form-row">
-          <label for="nameId"><b>Name or Identification No</b></label>
+          <label for="nameId"><b>Name or Identification No</b><span class="text-danger">*</span></label>
           <input
             type="text"
             id="nameId"
@@ -15,13 +15,14 @@
             required
           />
         </div>
+        <p v-if="errors.nameId" class="error-text">{{ errors.nameId }}</p>
 
         <!-- Location -->
         <div class="location-section">
-          <label class="section-label"><b>Location</b></label>
+          <label class="section-label"><b>Location</b><span class="text-danger">*</span></label>
           <div class="inline-labels compact">
-            <span>District</span>
-            <span>DS Division</span>
+            <span>District<span class="text-danger">*</span></span>
+            <span>DS Division<span class="text-danger">*</span></span>
             <span>GN Division</span>
             <span>Coordinates</span>
           </div>
@@ -44,23 +45,25 @@
             </select>
           </div>
         </div>
+        <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
 
         <!-- Average Capacity (m3 /Per day) -->
         <div class="form-row">
-          <label for="avgCapacity"><b>Average Capacity (m3 /Per day)</b></label>
+          <label for="avgCapacity"><b>Average Capacity (m3 /Per day)</b><span class="text-danger">*</span></label>
           <input id="avgCapacity" class="form-control" type="text"
                  v-model="formData.avgCapacity" @input="validateDecimal($event, 'avgCapacity')" required/>
         </div>
+        <p v-if="errors.avgCapacity" class="error-text">{{ errors.avgCapacity }}</p>
 
         <!-- Land Area + Ownership -->
         <div class="land-section">
-          <label class="section-label"><b>Land Area</b></label>
+          <label class="section-label"><b>Land Area</b><span class="text-danger">*</span></label>
           <div class="inline-labels compact">
-            <span>Measurement Unit</span>
-            <span>Area</span>
+            <span>Measurement Unit<span class="text-danger">*</span></span>
+            <span>Area<span class="text-danger">*</span></span>
             <span>Area (km²)</span>
-            <span>Ownership</span>
-            <span v-if="formData.treatmentPlant.landOwnership === 'Own by Other Party'">Land Owner</span>
+            <span>Ownership<span class="text-danger">*</span></span>
+            <span v-if="formData.treatmentPlant.landOwnership === 'Own by Other Party'">Land Owner<span class="text-danger">*</span></span>
           </div>
           <div class="inline-fields">
             <!-- Unit -->
@@ -102,6 +105,7 @@
             />
           </div>
         </div>
+        <p v-if="errors.landArea" class="error-text">{{ errors.landArea }}</p>
       </div>
 
       <!-- NEXT button -->
@@ -220,6 +224,15 @@ export default {
 .form-row input,
 .form-row select {
   flex: 1;
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section,
 .land-section {

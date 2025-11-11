@@ -4,16 +4,17 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No</b></label>
+        <label><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Location -->
       <div class="location-section">
-        <label class="section-label"><b>Location</b></label>
+        <label class="section-label"><b>Location</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -36,27 +37,31 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
 
       <!-- Length (m) -->
       <div class="form-row">
-        <label for="lengthM"><b>Length (m)</b></label>
+        <label for="lengthM"><b>Length (m)</b><span class="text-danger">*</span></label>
         <input id="lengthM" class="form-control" type="text"
                 v-model="formData.lengthM" @input="validateDecimal($event, 'lengthM')" required />
       </div>
+      <p v-if="errors.lengthM" class="error-text">{{ errors.lengthM }}</p>
 
       <!-- Average Height (m) -->
       <div class="form-row">
-        <label for="avgHeightM"><b>Average Height (m)</b></label>
+        <label for="avgHeightM"><b>Average Height (m)</b><span class="text-danger">*</span></label>
         <input id="avgHeightM" class="form-control" type="text"
                v-model="formData.avgHeightM" @input="validateDecimal($event, 'avgHeightM')" required />
       </div>
+      <p v-if="errors.avgHeightM" class="error-text">{{ errors.avgHeightM }}</p>
 
       <!-- Average Width (m) -->
       <div class="form-row">
-        <label for="avgWidthM"><b>Average Width (m)</b></label>
+        <label for="avgWidthM"><b>Average Width (m)</b><span class="text-danger">*</span></label>
         <input id="avgWidthM" class="form-control" type="text" 
                v-model="formData.avgWidthM" @input="validateDecimal($event, 'avgWidthM')" required />
       </div>
+      <p v-if="errors.avgWidthM" class="error-text">{{ errors.avgWidthM }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -80,6 +85,7 @@ export default {
         avgHeightM: '',
         avgWidthM: '',
       },
+      errors: {}
     }
   },
   methods: {
@@ -101,8 +107,7 @@ export default {
       const requiredFields = ["identificationName", "lengthM", "avgHeightM", "avgWidthM"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -110,8 +115,7 @@ export default {
       const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
         if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
-          return;
+          this.errors.location = "This field is required.";
         }
       }    
 
@@ -135,6 +139,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .type-inline.same-line {
   display: flex;

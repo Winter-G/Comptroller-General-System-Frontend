@@ -4,16 +4,17 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No</b></label>
+        <label><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Location -->
       <div class="location-section">
-        <label class="section-label"><b>Location</b></label>
+        <label class="section-label"><b>Location</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -36,10 +37,11 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
 
       <!-- Category of  Outlets -->
       <div class="form-row">
-        <label><b>Category of  Outlets</b></label>
+        <label><b>Category of  Outlets</b><span class="text-danger">*</span></label>
         <select id="category" v-model="formData.category" class="form-control" required>
           <option disabled value="">Select Category</option>
           <option value="Sea">Sea</option>
@@ -58,6 +60,8 @@
            required
            />
       </div>
+      <p v-if="errors.category" class="error-text">{{ errors.category }}</p>
+      <p v-if="formData.category === 'Other (Pls. Specify)' && errors.otherCategory" class="error-text">{{ errors.otherCategory }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -80,6 +84,7 @@ export default {
         category: '',
         otherCategory: '',
       },
+      errors: {}
     }
   },
   methods: {
@@ -97,8 +102,7 @@ export default {
       const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
         if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -127,6 +131,15 @@ export default {
   display: flex;
   gap: 12px;
   flex: 1;
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section { 
   margin-bottom: 20px; 

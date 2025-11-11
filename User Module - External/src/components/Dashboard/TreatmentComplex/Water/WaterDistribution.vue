@@ -5,32 +5,32 @@
       <!-- Name of the Water Distribution Center above the dropdowns, same row -->
       <div class="center-section">
         <div class="main-label">
-          <b>Name of the Water<br>Distribution Center</b>
+          <b>Name of the Water<br>Distribution Center</b><span class="text-danger">*</span>
         </div>
         <div class="inline-fields">
           <div class="field-block">
-            <span class="field-label">RSC</span>
+            <span class="field-label">RSC<span class="text-danger">*</span></span>
             <select v-model="formData.center.rsc" class="form-select" required>
               <option disabled value="">Select RSC</option>
               <option value="RSC">RSC</option>
             </select>
           </div>
           <div class="field-block">
-            <span class="field-label">Manager</span>
+            <span class="field-label">Manager<span class="text-danger">*</span></span>
             <select v-model="formData.center.manager" class="form-select" required>
               <option disabled value="">Select Manager</option>
               <option value="Manager">Manager</option>
             </select>
           </div>
           <div class="field-block">
-            <span class="field-label">Area Engineer</span>
+            <span class="field-label">Area Engineer<span class="text-danger">*</span></span>
             <select v-model="formData.center.areaEngineer" class="form-select" required>
               <option disabled value="">Select Area Engineer</option>
               <option value="Area Engineer">Area Engineer</option>
             </select>
           </div>
           <div class="field-block">
-            <span class="field-label">Area OIC</span>
+            <span class="field-label">Area OIC<span class="text-danger">*</span></span>
             <select v-model="formData.center.areaOIC" class="form-select" required>
               <option disabled value="">Select Area OIC</option>
               <option value="Area OIC">Area OIC</option>
@@ -38,6 +38,7 @@
           </div>
         </div>
       </div>
+      <p v-if="errors.center" class="error-text">{{ errors.center }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -55,6 +56,7 @@ export default {
       formData: {
         center: { rsc: '', manager: '', areaEngineer: '', areaOIC: '' },
       },
+      errors: {}
     }
   },
   methods: {
@@ -62,7 +64,7 @@ export default {
       const centerFields = ["rsc", "manager", "areaEngineer", "areaOIC"];
       for (const field of centerFields) {
         if (!this.formData.center[field]) {
-          alert("Please fill all required fields in Center!");
+          this.errors.center = "Please fill all required fields in Center!";
           return;
         }
       }
@@ -84,6 +86,16 @@ export default {
 .main-label {
   min-width: 180px; 
   text-align: left;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 
 .inline-fields {

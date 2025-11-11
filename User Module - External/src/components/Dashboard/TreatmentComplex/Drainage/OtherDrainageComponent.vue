@@ -9,15 +9,17 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No</b></label>
+        <label><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Description -->
       <div class="form-row">
-        <label><b>Description</b></label>
+        <label><b>Description</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.description" maxlength="100" class="form-control" required />
       </div>
+      <p v-if="errors.description" class="error-text">{{ errors.description }}</p>
 
       <!-- Length (m) -->
       <div class="form-row">
@@ -124,6 +126,7 @@ export default {
         capacityWithUnit: '',
         otherDrainage: { unit: '', area: '', areaKm: ''},
       },
+      errors: {}
     }
   },
   methods: {
@@ -173,8 +176,7 @@ export default {
       const requiredFields = ["identificationName", "description"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -198,6 +200,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .type-inline.same-line {
   display: flex;

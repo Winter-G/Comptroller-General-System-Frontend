@@ -4,13 +4,14 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No</b></label>
+        <label><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Type of Tank -->
       <div class="form-row">
-        <label><b>Type of Tank</b></label>
+        <label><b>Type of Tank</b><span class="text-danger">*</span></label>
         <select v-model="formData.type" class="form-control" required>
           <option disabled value="">Select Type</option>
           <option value="Above Ground">Above Ground</option>
@@ -18,13 +19,14 @@
           <option value="Mixed">Mixed</option>
         </select>
       </div>
+      <p v-if="errors.type" class="error-text">{{ errors.type }}</p>
 
       <!-- Location -->
       <div class="location-section">
-        <label class="section-label"><b>Location</b></label>
+        <label class="section-label"><b>Location</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -47,13 +49,15 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
 
       <!-- Capacity (m3) -->
       <div class="form-row">
-        <label for="capacityM3"><b>Capacity (m³)</b></label>
+        <label for="capacityM3"><b>Capacity (m³)</b><span class="text-danger">*</span></label>
         <input id="capacityM3" class="form-control" type="text" maxlength="10"
                v-model="formData.capacityM3" @input="validateDecimal($event, 'capacityM3')" required />
       </div>
+      <p v-if="errors.capacityM3" class="error-text">{{ errors.capacityM3 }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -76,6 +80,7 @@ export default {
         location: { district: '', dsDivision: '', gnDivision: '', coordinates: '' },
         capacityM3: '',
       },
+      errors: {}
     }
   },
   methods: {
@@ -97,8 +102,7 @@ export default {
       const requiredFields = ["identificationName", "type", "capacityM3"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -106,8 +110,7 @@ export default {
       const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
         if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
-          return;
+          this.errors.location = "Please fill all required fields in Location!";
         }
       }
       
@@ -131,6 +134,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .type-inline.same-line {
   display: flex;

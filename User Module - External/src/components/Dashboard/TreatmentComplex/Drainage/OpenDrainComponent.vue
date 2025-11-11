@@ -4,10 +4,11 @@
 
       <!-- Total Length of Open Drain (km) -->
       <div class="form-row">
-        <label for="totalLength"><b>Total Length of Open Drain (km)</b></label>
+        <label for="totalLength"><b>Total Length of Open Drain (km)</b><span class="text-danger">*</span></label>
         <input id="totalLength" class="form-control" type="text"
                v-model="formData.totalLength" @input="validateDecimal($event, 'totalLength')" required/>
       </div>
+      <p v-if="errors.totalLength" class="error-text">{{ errors.totalLength }}</p>
       
       <!-- Notice -->
       <div class="alert alert-info my-3">
@@ -17,7 +18,7 @@
       <!-- Total Construction Cost of the Cost Known Open Drain -->
       <div class="form-row same-line">
         <label class="section-label">
-          <b>Total Construction Cost of the Cost Known Open Drain</b>
+          <b>Total Construction Cost of the Cost Known Open Drain</b><span class="text-danger">*</span>
         </label>
 
         <div class="field-group">
@@ -32,13 +33,15 @@
                  @input="validateNumber($event, 'cost')" required>
         </div>
       </div>
+      <p v-if="errors.construction" class="error-text">{{ errors.construction }}</p>
 
       <!-- Length of Cost Unknown Open Drains (km) -->
       <div class="form-row">
-        <label for="lengthOfUnknownDrains"><b>Length of Cost Unknown Open Drains (km)</b></label>
+        <label for="lengthOfUnknownDrains"><b>Length of Cost Unknown Open Drains (km)</b><span class="text-danger">*</span></label>
         <input id="lengthOfUnknownDrains" class="form-control" type="text"
                v-model="formData.lengthOfUnknownDrains" readonly disabled />
       </div>
+      <p v-if="errors.lengthOfUnknownDrains" class="error-text">{{ errors.lengthOfUnknownDrains }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -57,6 +60,7 @@ export default {
         construction: { length: '', cost: '' },
         lengthOfUnknownDrains: '',
       },
+      errors: {}
     }
   },
   watch: {
@@ -93,14 +97,14 @@ export default {
       const requiredFields = ["totalLength", "lengthOfUnknownDrains"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
+          this.errors[field] = "This field is required.";
           return;
         }
       }
       const constructionFields = ["length", "cost"];
       for (const field of constructionFields) {
         if (!this.formData.construction[field]) {
-          alert("Please fill all required fields in Construction!");
+          this.errors.construction = "Please fill all required fields in Construction!";
           return;
         }
       }
@@ -124,6 +128,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .form-row.same-line {
   display: flex;

@@ -4,16 +4,17 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No</b></label>
+        <label><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Location -->
       <div class="location-section">
-        <label class="section-label"><b>Location</b></label>
+        <label class="section-label"><b>Location</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -36,12 +37,14 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.location" class="error-text">{{ errors.location }}</p>
 
       <!-- Number of Cylinders -->
       <div class="form-row">
-        <label for="numberOfCylinders"><b>Number of Cylinders</b></label>
+        <label for="numberOfCylinders"><b>Number of Cylinders</b><span class="text-danger">*</span></label>
         <input id="numberOfCylinders" class="form-control" type="text" v-model="formData.numberOfCylinders" @input="validateNumber($event, 'numberOfCylinders')" required />
       </div>
+      <p v-if="errors.numberOfCylinders" class="error-text">{{ errors.numberOfCylinders }}</p>
 
       <!-- Minimum Capacity (kg/h) -->
       <div class="form-row">
@@ -78,8 +81,8 @@ export default {
         numberOfCylinders: '',
         minCapacity: '',
         maxCapacity: '',
-
       },
+      errors: {}
     }
   },
   methods: {
@@ -105,8 +108,7 @@ export default {
       const requiredFields = ["identificationName", "numberOfCylinders"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -114,8 +116,7 @@ export default {
       const locationFields = ["district", "dsDivision"];
       for (const field of locationFields) {
         if (!this.formData.location[field]) {
-          alert("Please fill all required fields in Location!");
-          return;
+          this.errors.location = "Please fill all required fields in Location!";
         }
       }
 
@@ -139,6 +140,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .type-inline.same-line {
   display: flex;

@@ -4,13 +4,13 @@
 
       <!-- Institution Name -->
       <div class="form-row">
-        <label><b>Institution Name:</b></label>
+        <label><b>Institution Name:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionName" class="form-control" disabled />
       </div>
 
       <!-- Institutional Sector -->
       <div class="form-row mt-2">
-        <label><b>Institutional Sector:</b></label>
+        <label><b>Institutional Sector:</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.institutionalSector" class="form-control" disabled />
       </div>
 
@@ -21,7 +21,7 @@
 
       <!-- Assets Code -->
       <div class="form-row">
-        <label><b>Assets Code:</b></label>
+        <label><b>Assets Code:</b><span class="text-danger">*</span></label>
         <select id="assetsCode" v-model="formData.assetsCode" class="form-control">
           <option disabled value="">6111310 – Drainage System</option>
         </select>
@@ -29,9 +29,10 @@
 
       <!-- Drainage System Covered Area -->
       <div class="form-row">
-        <label><b>Drainage System Covered<br>Area (Ex – Dehiwala)</br></b></label>
+        <label><b>Drainage System Covered<br>Area (Ex – Dehiwala)</br></b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.drainageArea" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.drainageArea" class="error-text">{{ errors.drainageArea }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -52,6 +53,7 @@ export default {
         assetsCode: '',
         drainageArea: '',
       },
+      errors: {}
     }
   },
   methods: {
@@ -60,8 +62,7 @@ export default {
       const requiredFields = ["drainageArea"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -85,6 +86,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .location-section { 
   margin-bottom: 20px; 

@@ -4,16 +4,17 @@
 
       <!-- Identification Name or No -->
       <div class="form-row">
-        <label><b>Identification Name or No</b></label>
+        <label><b>Identification Name or No</b><span class="text-danger">*</span></label>
         <input type="text" v-model="formData.identificationName" maxlength="50" class="form-control" required />
       </div>
+      <p v-if="errors.identificationName" class="error-text">{{ errors.identificationName }}</p>
 
       <!-- Start Point -->
       <div class="location-section">
-        <label class="section-label"><b>Start Point</b></label>
+        <label class="section-label"><b>Start Point</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -36,13 +37,14 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.startPoint" class="error-text">{{ errors.startPoint }}</p>
 
       <!-- End Point -->
       <div class="location-section">
-        <label class="section-label"><b>End Point</b></label>
+        <label class="section-label"><b>End Point</b><span class="text-danger">*</span></label>
         <div class="inline-labels compact">
-          <span>District</span>
-          <span>DS Division</span>
+          <span>District<span class="text-danger">*</span></span>
+          <span>DS Division<span class="text-danger">*</span></span>
           <span>GN Division</span>
           <span>Coordinates</span>
         </div>
@@ -65,20 +67,23 @@
           </select>
         </div>
       </div>
+      <p v-if="errors.endPoint" class="error-text">{{ errors.endPoint }}</p>
 
       <!-- Length (Km) -->
       <div class="form-row">
-        <label for="lengthKm"><b>Length (Km)</b></label>
+        <label for="lengthKm"><b>Length (Km)</b><span class="text-danger">*</span></label>
         <input id="lengthKm" class="form-control" type="text" 
                 v-model="formData.lengthKm" @input="validateDecimal($event, 'lengthKm')" required />
       </div>
+      <p v-if="errors.lengthKm" class="error-text">{{ errors.lengthKm }}</p>
 
       <!-- Average Width (m) -->
       <div class="form-row">
-        <label for="avgWidthM"><b>Average Width (m)</b></label>
+        <label for="avgWidthM"><b>Average Width (m)</b><span class="text-danger">*</span></label>
         <input id="avgWidthM" class="form-control" type="text" 
                v-model="formData.avgWidthM" @input="validateDecimal($event, 'avgWidthM')" required />
       </div>
+      <p v-if="errors.avgWidthM" class="error-text">{{ errors.avgWidthM }}</p>
 
       <!-- NEXT button -->
       <div class="next-btn-container">
@@ -102,6 +107,7 @@ export default {
         lengthKm: '',
         avgWidthM: '',
       },
+      errors: {}
     }
   },
   methods: {
@@ -123,8 +129,7 @@ export default {
       const requiredFields = ["identificationName", "lengthKm", "avgWidthM"];
       for (const field of requiredFields) {
         if (!this.formData[field]) {
-          alert("Please fill all required fields!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -132,8 +137,7 @@ export default {
       const startPointFields = ["district", "dsDivision"];
       for (const field of startPointFields) {
         if (!this.formData.startPoint[field]) {
-          alert("Please fill all required fields in Start Point!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }
 
@@ -141,8 +145,7 @@ export default {
       const endPointFields = ["district", "dsDivision"];
       for (const field of endPointFields) {
         if (!this.formData.endPoint[field]) {
-          alert("Please fill all required fields in End Point!");
-          return;
+          this.errors[field] = "This field is required.";
         }
       }      
 
@@ -166,6 +169,15 @@ export default {
 }
 .form-row input, .form-row select {
    flex: 1; 
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.error-text {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 .type-inline.same-line {
   display: flex;
