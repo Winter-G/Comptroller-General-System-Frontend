@@ -72,7 +72,10 @@ import OwnershipChange from "./components/Dashboard/Roads/DataVerificationOffice
 import Transfer from "./components/Dashboard/Roads/DataVerificationOfficer/Transfer.vue";
 import Disposal from "./components/Dashboard/Roads/DataVerificationOfficer/Disposal.vue";
 import RoadsNotCompletedConstructionModal from "./components/Dashboard/Roads/RoadsNotCompletedConstructionModal.vue";
-
+//Railway
+import MainDashboard from "./components/Dashboard/Railway/DVDashboard/MainDashboard.vue"; //Dv
+import ViewRailwayDetails from "./components/Dashboard/Railway/DVDashboard/ViewRailwayDetails.vue";
+import RailwayToDoList from "./components/Dashboard/Railway/DVDashboard/RailwayToDoList.vue";
 import Dashboard from "./components/Dashboard/Railway/Dashboard.vue"; //Railway
 import RailwayLine from "./components/Dashboard/Railway/RailwayLine.vue";
 import SectionsModal from "./components/Dashboard/Railway/SectionsModal.vue";
@@ -632,6 +635,24 @@ const routes = [
   },
 
   //Railway
+  {
+    //Main Dashboard
+    path: '/railway/main-dashboard',
+    name: 'MainDashboard',
+    component: MainDashboard
+  },
+  {
+    //View Railway Details
+    path: '/railway/view/:id',
+    name: 'ViewRailwayDetails',
+    component: ViewRailwayDetails
+  },
+  {
+    //To Do List
+    path: '/todo-list-railway',
+    name: 'RailwayToDoList',
+    component: RailwayToDoList
+  },
   {
     //Dashboard
     path: '/railway/dashboard',

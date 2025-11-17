@@ -31,7 +31,7 @@
         </select>
       </div>
       <p v-if="errors.assetsCode" class="error-text">{{ errors.assetsCode }}</p>
-
+ 
       <!-- Type of the Structure -->
       <div class="form-row">
         <label for="structureType"><b>Type of the Structure:</b><span class="text-danger">*</span></label>
